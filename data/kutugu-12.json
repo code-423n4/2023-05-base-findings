@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "kutugu",
+  "risk": "2",
+  "title": "ERC677 onTokenTransfer return value not check",
+  "issueId": 12,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/12"
+}
