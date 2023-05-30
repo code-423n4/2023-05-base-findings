@@ -2,6 +2,29 @@
 
 ##
 
+## [L-1] No maximum limit for _gasLimit 
+
+Only Minimum value only checked.  
+
+To ensure the contract operates predictably, avoids excessive gas consumption, and protects against potential attacks, it is generally recommended to set appropriate maximum gas limits for each function or transaction. The gas limit should be determined based on careful analysis of the contract's logic, potential gas consumption patterns, and consideration of security and cost-efficiency factors
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
+
+139:  gasLimit = _gasLimit;
+142:  require(_gasLimit >= minimumGasLimit(), "SystemConfig: gas limit too low");
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L142
+
+### Recommended Mitigation
+
+- Consider to implement maximumGasLimit() check
+
+- maximumGasLimit(),minimumGasLimit() values determined based on careful analysis. Both Values should be updated based on analysis by Owner  
+
+##
+
 ## [L-4] Possible to front-run the initialize() function in certain scenarios
 
 - Front-running refers to the act of observing pending transactions in the mempool and quickly submitting a transaction with a higher gas price to get ahead of the original transaction. In the case of the initialize() function, if the function is publicly accessible and can be called by anyone, it is susceptible to front-running.
@@ -160,6 +183,14 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/deployment/SystemDictator.sol#L193-L198
 
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L180-L185
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L192-L197
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L205-L210
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L218-L224
+
 
 A single point of failure
 
@@ -175,7 +206,11 @@ A single point of failure
 
 ##
 
-## [NC-1] 
+## [NC-1] Owner Can renounce the Ownership
+
+
+
+
 
 ## [NC-1] Do not calculate constants every time 
 
@@ -202,6 +237,15 @@ FILE: optimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
 
 ```
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L43
+
+##
+
+## [NC-3] Move require check on top of the initialize() function
+
+Consider more require check on top of the initialize() function to avoid unwanted revert after all state changes.
+First check gaslimit then perform necessary value and state changes 
+ 
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L133-L143
 
  
 
