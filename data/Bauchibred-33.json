@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "Bauchibred",
+  "risk": "2",
+  "title": "SelfDestruction.sol's `destruct()` Function  is now Ineffective",
+  "issueId": 33,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/33"
+}
