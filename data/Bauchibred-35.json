@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "Bauchibred",
+  "risk": "2",
+  "title": "Existence of Payable Functions in ERC20 Bridge Contracts is Dangerous",
+  "issueId": 35,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/35"
+}
