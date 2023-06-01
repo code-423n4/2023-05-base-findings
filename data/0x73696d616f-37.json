@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "0x73696d616f",
+  "risk": "2",
+  "title": "L2ERC721Bridge should check that the local `IOptimismMintableERC721` was created by the factory to prevent malicious tokens from stealing users",
+  "issueId": 37,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/37"
+}
