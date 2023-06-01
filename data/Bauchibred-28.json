@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "Bauchibred",
+  "risk": "2",
+  "title": "Current transfer flow in `L1ERC721Bridge.sol` provides a window for rewards/airdrops associated with locked NFTs to be stolen",
+  "issueId": 28,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/28"
+}
