@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "0x73696d616f",
+  "risk": "2",
+  "title": "`depositTransaction(...)` in OptimismPortal allows sending a different msg.value than the `value` argument, leading to loss of funds or extra funds in the L2",
+  "issueId": 36,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/36"
+}
