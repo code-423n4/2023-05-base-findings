@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "Bughunter101",
+  "risk": "3",
+  "title": "If no funds are deposited at the beginning, L1-L2 cannot be transferred out",
+  "issueId": 38,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/38"
+}
