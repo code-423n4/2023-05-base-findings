@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "Bughunter101",
+  "risk": "3",
+  "title": "`_initiateBridgeERC20()` does not check if `_remoteToken` is valid. When the message send to L2, it will cause user lossing funds in L1",
+  "issueId": 39,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/39"
+}
