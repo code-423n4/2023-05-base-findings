@@ -9,18 +9,18 @@
 | [LOW&#x2011;1](#LOW&#x2011;1) | Add to `blacklist` function | 9 |
 | [LOW&#x2011;2](#LOW&#x2011;2) | Avoid using `tx.origin` | 2 |
 | [LOW&#x2011;3](#LOW&#x2011;3) | Event is missing parameters | 3 |
-| [LOW&#x2011;5](#LOW&#x2011;5) | Possible rounding issue | 3 |
-| [LOW&#x2011;6](#LOW&#x2011;6) | Missing Contract-existence Checks Before Low-level Calls | 1 |
-| [LOW&#x2011;7](#LOW&#x2011;7) | Contracts are not using their OZ Upgradeable counterparts | 9 |
-| [LOW&#x2011;10](#LOW&#x2011;10) | TransferOwnership Should Be Two Step | 3 |
-| [LOW&#x2011;11](#LOW&#x2011;11) | Unbounded loop | 1 |
-| [LOW&#x2011;12](#LOW&#x2011;12) | Unsafe downcast | 5 |
-| [LOW&#x2011;13](#LOW&#x2011;13) | No Storage Gap For Upgradeable Contracts | 1 |
-| [LOW&#x2011;14](#LOW&#x2011;14) | Upgrade OpenZeppelin Contract Dependency | 2 |
-| [LOW&#x2011;15](#LOW&#x2011;15) | Use `Ownable2Step` rather than `Ownable` | 6 |
-| [LOW&#x2011;16](#LOW&#x2011;16) | Use `safeTransferOwnership` instead of `transferOwnership` function | 3 |
+| [LOW&#x2011;4](#LOW&#x2011;4) | Possible rounding issue | 3 |
+| [LOW&#x2011;5](#LOW&#x2011;5) | Missing Contract-existence Checks Before Low-level Calls | 1 |
+| [LOW&#x2011;6](#LOW&#x2011;6) | Contracts are not using their OZ Upgradeable counterparts | 9 |
+| [LOW&#x2011;7](#LOW&#x2011;7) | TransferOwnership Should Be Two Step | 3 |
+| [LOW&#x2011;8](#LOW&#x2011;8) | Unbounded loop | 1 |
+| [LOW&#x2011;9](#LOW&#x2011;9) | Unsafe downcast | 5 |
+| [LOW&#x2011;10](#LOW&#x2011;10) | No Storage Gap For Upgradeable Contracts | 1 |
+| [LOW&#x2011;11](#LOW&#x2011;11) | Upgrade OpenZeppelin Contract Dependency | 2 |
+| [LOW&#x2011;12](#LOW&#x2011;12) | Use `Ownable2Step` rather than `Ownable` | 6 |
+| [LOW&#x2011;13](#LOW&#x2011;13) | Use `safeTransferOwnership` instead of `transferOwnership` function | 3 |
 
-Total: 79 contexts over 17 issues
+Total: 48 contexts over 13 issues
 
 ### Non-critical Issues
 | |Issue|Contexts|
@@ -41,17 +41,17 @@ Total: 79 contexts over 17 issues
 | [NC&#x2011;14](#NC&#x2011;14) | Imports can be grouped together | 15 |
 | [NC&#x2011;15](#NC&#x2011;15) | No need to initialize uints to zero | 2 |
 | [NC&#x2011;16](#NC&#x2011;16) | Initial value check is missing in Set Functions | 5 |
-| [NC&#x2011;18](#NC&#x2011;18) | Missing event for critical parameter change | 1 |
-| [NC&#x2011;19](#NC&#x2011;19) | NatSpec comments should be increased in contracts | 1 |
-| [NC&#x2011;20](#NC&#x2011;20) | NatSpec `@param` is missing | 2 |
-| [NC&#x2011;21](#NC&#x2011;21) | NatSpec `@return` argument is missing | 1 |
-| [NC&#x2011;22](#NC&#x2011;22) | Use a more recent version of Solidity | 19 |
-| [NC&#x2011;23](#NC&#x2011;23) | Omissions in Events | 3 |
-| [NC&#x2011;24](#NC&#x2011;24) | Public Functions Not Called By The Contract Should Be Declared External Instead | 3 |
-| [NC&#x2011;25](#NC&#x2011;25) | Empty blocks should be removed or emit something | 10 |
-| [NC&#x2011;26](#NC&#x2011;26) | Use `bytes.concat()` | 1 |
+| [NC&#x2011;17](#NC&#x2011;17) | Missing event for critical parameter change | 1 |
+| [NC&#x2011;18](#NC&#x2011;18) | NatSpec comments should be increased in contracts | 1 |
+| [NC&#x2011;19](#NC&#x2011;19) | NatSpec `@param` is missing | 2 |
+| [NC&#x2011;20](#NC&#x2011;20) | NatSpec `@return` argument is missing | 1 |
+| [NC&#x2011;21](#NC&#x2011;21) | Use a more recent version of Solidity | 19 |
+| [NC&#x2011;22](#NC&#x2011;22) | Omissions in Events | 3 |
+| [NC&#x2011;23](#NC&#x2011;23) | Public Functions Not Called By The Contract Should Be Declared External Instead | 3 |
+| [NC&#x2011;24](#NC&#x2011;24) | Empty blocks should be removed or emit something | 10 |
+| [NC&#x2011;25](#NC&#x2011;25) | Use `bytes.concat()` | 1 |
 
-Total: 101 contexts over 26 issues
+Total: 100 contexts over 25 issues
 
 ## Low Risk Issues
 
@@ -278,7 +278,7 @@ Add `msg.sender` parameter in event-emit
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;5]</a><a name="LOW&#x2011;5"> Possible rounding issue
+### <a href="#QA Summary">[LOW&#x2011;4]</a><a name="LOW&#x2011;4"> Possible rounding issue
 
 Division by large numbers may result in the result being zero, due to solidity not supporting fractions. Consider requiring a minimum amount for the numerator to ensure that it is always larger than the denominator
 
@@ -315,7 +315,7 @@ https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cb
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;6]</a><a name="LOW&#x2011;6"> Missing Contract-existence Checks Before Low-level Calls
+### <a href="#QA Summary">[LOW&#x2011;5]</a><a name="LOW&#x2011;5"> Missing Contract-existence Checks Before Low-level Calls
 
 Low-level calls return success if there is no code present at the specified address. 
 
@@ -341,7 +341,7 @@ In addition to the zero-address checks, add a check to verify that `<address>.co
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;7]</a><a name="LOW&#x2011;7"> Contracts are not using their OZ Upgradeable counterparts
+### <a href="#QA Summary">[LOW&#x2011;6]</a><a name="LOW&#x2011;6"> Contracts are not using their OZ Upgradeable counterparts
 
 The non-upgradeable standard version of OpenZeppelin’s library are inherited / used by the contracts.
 It would be safer to use the upgradeable versions of the library contracts to avoid unexpected behaviour.
@@ -420,7 +420,7 @@ See https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/tree/mast
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;10]</a><a name="LOW&#x2011;10"> TransferOwnership Should Be Two Step
+### <a href="#QA Summary">[LOW&#x2011;7]</a><a name="LOW&#x2011;7"> TransferOwnership Should Be Two Step
 
 Recommend considering implementing a two step process where the owner or admin nominates an account and the nominated account needs to call an acceptOwnership() function for the transfer of ownership to fully succeed. This ensures the nominated EOA account is a valid and active account.
 
@@ -457,7 +457,7 @@ Lack of two-step procedure for critical operations leaves them error-prone. Cons
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;11]</a><a name="LOW&#x2011;11"> Unbounded loop
+### <a href="#QA Summary">[LOW&#x2011;8]</a><a name="LOW&#x2011;8"> Unbounded loop
 
 New items are pushed into the following arrays but there is no option to `pop` them out. Currently, the array can grow indefinitely. E.g. there's no maximum limit and there's no functionality to remove array values.
 If the array grows too large, calling relevant functions might run out of gas and revert. Calling these functions could result in a DOS condition.
@@ -482,7 +482,7 @@ Add a functionality to delete array values or add a maximum size limit for array
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;12]</a><a name="LOW&#x2011;12"> Unsafe Downcast
+### <a href="#QA Summary">[LOW&#x2011;9]</a><a name="LOW&#x2011;9"> Unsafe Downcast
 When a type is downcast to a smaller type, the higher order bits are truncated, effectively applying a modulo to the original value. Without any other checks, this wrapping will lead to unexpected behavior and bugs
 
 #### <ins>Proof Of Concept</ins>
@@ -524,7 +524,7 @@ https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cb
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;13]</a><a name="LOW&#x2011;13"> No storage gap for upgradeable contract might lead to storage slot collision
+### <a href="#QA Summary">[LOW&#x2011;10]</a><a name="LOW&#x2011;10"> No storage gap for upgradeable contract might lead to storage slot collision
 
 For upgradeable contracts, there must be storage gap to "allow developers to freely add new state variables in the future without compromising the storage compatibility with existing deployments". Otherwise it may be very difficult to write new implementation code. Without storage gap, the variable in child contract might be overwritten by the upgraded base contract if new variables are added to the base contract. This could have unintended and very serious consequences to the child contracts.
 
@@ -554,7 +554,7 @@ Recommend adding appropriate storage gap at the end of upgradeable contracts suc
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;14]</a><a name="LOW&#x2011;14"> Upgrade OpenZeppelin Contract Dependency
+### <a href="#QA Summary">[LOW&#x2011;11]</a><a name="LOW&#x2011;11"> Upgrade OpenZeppelin Contract Dependency
 
 An outdated OZ version is used (which has known vulnerabilities, see: https://github.com/OpenZeppelin/openzeppelin-contracts/security/advisories).
 Release: https://github.com/OpenZeppelin/openzeppelin-contracts/releases/tag/v4.9.0
@@ -587,7 +587,7 @@ Update OpenZeppelin Contracts Usage in package.json and require at least version
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;15]</a><a name="LOW&#x2011;15"> Use `Ownable2Step` rather than `Ownable`
+### <a href="#QA Summary">[LOW&#x2011;12]</a><a name="LOW&#x2011;12"> Use `Ownable2Step` rather than `Ownable`
 
 `Ownable2Step` and `Ownable2StepUpgradeable` prevent the contract ownership from mistakenly being transferred to an address that cannot handle it (e.g. due to a typo in the address), by requiring that the recipient of the owner permissions actively accept via a contract call of its own.
 
@@ -636,7 +636,7 @@ https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cb
 
 
 
-### <a href="#QA Summary">[LOW&#x2011;16]</a><a name="LOW&#x2011;16"> Use `safeTransferOwnership` instead of `transferOwnership` function
+### <a href="#QA Summary">[LOW&#x2011;13]</a><a name="LOW&#x2011;13"> Use `safeTransferOwnership` instead of `transferOwnership` function
 
 Use `safeTransferOwnership` which is safer. Use it as it is more secure due to 2-stage ownership transfer.
 
@@ -1270,7 +1270,7 @@ https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cb
 </details>
 
 
-### <a href="#QA Summary">[NC&#x2011;18]</a><a name="NC&#x2011;18"> Missing event for critical parameter change
+### <a href="#QA Summary">[NC&#x2011;17]</a><a name="NC&#x2011;17"> Missing event for critical parameter change
 
 When changing state variables events are not emitted. Emitting events allows monitoring activities with off-chain monitoring tools.
 
@@ -1291,7 +1291,7 @@ https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cb
 
 
 
-### <a href="#QA Summary">[NC&#x2011;19]</a><a name="NC&#x2011;19"> NatSpec comments should be increased in contracts
+### <a href="#QA Summary">[NC&#x2011;18]</a><a name="NC&#x2011;18"> NatSpec comments should be increased in contracts
 
 It is recommended that Solidity contracts are fully annotated using NatSpec for all public interfaces (everything in the ABI). It is clearly stated in the Solidity official documentation. In complex projects such as Defi, the interpretation of all functions and their arguments and returns is important for code readability and auditability. https://docs.soliditylang.org/en/v0.8.15/natspec-format.html
 
@@ -1307,7 +1307,7 @@ NatSpec comments should be increased in contracts
 
 
 
-### <a href="#QA Summary">[NC&#x2011;20]</a><a name="NC&#x2011;20"> NatSpec `@param` is missing
+### <a href="#QA Summary">[NC&#x2011;19]</a><a name="NC&#x2011;19"> NatSpec `@param` is missing
 
 #### <ins>Proof Of Concept</ins>
 
@@ -1339,7 +1339,7 @@ https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cb
 
 
 
-### <a href="#QA Summary">[NC&#x2011;21]</a><a name="NC&#x2011;21"> NatSpec `@return` argument is missing
+### <a href="#QA Summary">[NC&#x2011;20]</a><a name="NC&#x2011;20"> NatSpec `@return` argument is missing
 
 #### <ins>Proof Of Concept</ins>
 
@@ -1365,7 +1365,7 @@ https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cb
 
 
 
-### <a href="#QA Summary">[NC&#x2011;22]</a><a name="NC&#x2011;22"> Use a more recent version of Solidity
+### <a href="#QA Summary">[NC&#x2011;21]</a><a name="NC&#x2011;21"> Use a more recent version of Solidity
 
 <a href="https://blog.soliditylang.org/2021/04/21/solidity-0.8.4-release-announcement/">0.8.4</a>:
 bytes.concat() instead of abi.encodePacked(<bytes>,<bytes>)
@@ -1544,7 +1544,7 @@ Consider updating to a more recent solidity version.
 
 
 
-### <a href="#QA Summary">[NC&#x2011;23]</a><a name="NC&#x2011;23"> Omissions in Events
+### <a href="#QA Summary">[NC&#x2011;22]</a><a name="NC&#x2011;22"> Omissions in Events
 
 Throughout the codebase, events are generally emitted when sensitive changes are made to the contracts. However, some events are missing important parameters
 The following events should also add the previous original value in addition to the new value.
@@ -1582,7 +1582,7 @@ The events should include the new value and old value where possible.
 
 
 
-### <a href="#QA Summary">[NC&#x2011;24]</a><a name="NC&#x2011;24"> Public Functions Not Called By The Contract Should Be Declared External Instead
+### <a href="#QA Summary">[NC&#x2011;23]</a><a name="NC&#x2011;23"> Public Functions Not Called By The Contract Should Be Declared External Instead
 
 Contracts are allowed to override their parents’ functions and change the visibility from external to public.
 
@@ -1615,7 +1615,7 @@ https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cb
 
 
 
-### <a href="#QA Summary">[NC&#x2011;25]</a><a name="NC&#x2011;25"> Empty blocks should be removed or emit something
+### <a href="#QA Summary">[NC&#x2011;24]</a><a name="NC&#x2011;24"> Empty blocks should be removed or emit something
 
 #### <ins>Proof Of Concept</ins>
 
@@ -1698,7 +1698,7 @@ https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cb
 
 
 
-### <a href="#QA Summary">[NC&#x2011;26]</a><a name="NC&#x2011;26"> Use `bytes.concat()`
+### <a href="#QA Summary">[NC&#x2011;25]</a><a name="NC&#x2011;25"> Use `bytes.concat()`
 
 Solidity version 0.8.4 introduces `bytes.concat()` (vs `abi.encodePacked(<bytes>,<bytes>)`)
 
