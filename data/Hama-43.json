@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "Hama",
+  "risk": "2",
+  "title": "Cross-Chain Replay Attack Vulnerability in initiateWithdrawal Function",
+  "issueId": 43,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/43"
+}
