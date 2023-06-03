@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "SanketKogekar",
+  "risk": "2",
+  "title": " The `StandardBridge.finalizeBridgeERC20()` misses 2 require statements which are part of `StandardBridge.finalizeBridgeETH()`",
+  "issueId": 48,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/48"
+}
