@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "SanketKogekar",
+  "risk": "2",
+  "title": "The `require` condition on `SystemDictator.exit1()` is slightly incorrect.",
+  "issueId": 49,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/49"
+}
