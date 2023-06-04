@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "yixiao5428",
+  "risk": "3",
+  "title": "Chain split caused by memory corruption in EVM",
+  "issueId": 56,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/56"
+}
