@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "yixiao5428",
+  "risk": "2",
+  "title": "DoS caused by malicious GetProofsV2 request",
+  "issueId": 58,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/58"
+}
