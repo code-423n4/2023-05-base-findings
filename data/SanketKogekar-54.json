@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "SanketKogekar",
+  "risk": "2",
+  "title": "In `SystemDictator.finalize()` there is no check before finalizing deployment.",
+  "issueId": 54,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/54"
+}
