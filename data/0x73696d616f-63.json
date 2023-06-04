@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "0x73696d616f",
+  "risk": "2",
+  "title": "Attacker can frontrun user bid with wrong lotId and create the lot with that lotId, forcing the user to take a big loss ",
+  "issueId": 63,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/63"
+}
