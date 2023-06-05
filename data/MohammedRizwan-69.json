@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "MohammedRizwan",
+  "risk": "2",
+  "title": "onlyEOA modifier can be bypassed and leads to loss of user funds(Openzeppelin removed isContract function check)",
+  "issueId": 69,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/69"
+}
