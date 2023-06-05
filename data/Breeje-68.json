@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "Breeje",
+  "risk": "3",
+  "title": "Loss of user funds due to gas Limit set to zero on L2StandardBridge",
+  "issueId": 68,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/68"
+}
