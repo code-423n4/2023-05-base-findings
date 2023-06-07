@@ -25,7 +25,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [L-4] Possible to front-run the initialize() function in certain scenarios
+## [L-2] Possible to front-run the initialize() function in certain scenarios
 
 - Front-running refers to the act of observing pending transactions in the mempool and quickly submitting a transaction with a higher gas price to get ahead of the original transaction. In the case of the initialize() function, if the function is publicly accessible and can be called by anyone, it is susceptible to front-running.
 
@@ -70,15 +70,13 @@ FILE: optimism/packages/contracts-bedrock/contracts/deployment/SystemDictator.so
 ```
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/deployment/SystemDictator.sol#L193-L198
 
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L120-L131
+
 ### Recommended Mitigation 
 
+##
 
-
-
-
-
-
-# [L-1] Use Ownable2StepUpgradeable rather than OwnableUpgradeable
+## [L-3] Use Ownable2StepUpgradeable rather than OwnableUpgradeable
 
 [Ownable2StepUpgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/25aabd286e002a1526c345c8db259d57bdf0ad28/contracts/access/Ownable2StepUpgradeable.sol#L47-L63) is an extension of the [OwnableUpgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/access/OwnableUpgradeable.sol) contract that adds an additional step to the ownership transfer process. The additional step requires the new owner to accept ownership before it is transferred. This helps prevent accidental transfers of ownership and provides an additional layer of security
 
@@ -116,7 +114,7 @@ https://github.com/ethereum-optimism/optimism/blob/941ae589b88e55183c7796ef8ad63
 
 ##
 
-## [L-2] No Storage Gap for SystemConfig and SystemDictator Contract 
+## [L-4] No Storage Gap for SystemConfig and SystemDictator Contract 
 
 [SystemConfig.sol#L16](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L16)
 
@@ -154,7 +152,7 @@ uint256[50] private __gap;
 
 ##
 
-## [L-3] Missing Event for critical parameters initialize and change
+## [L-5] Missing Event for critical parameters initialize and change
 
 Description
 Events help non-contract tools to track changes, and events prevent users from being surprised by changes.
@@ -171,7 +169,7 @@ Add Event-Emit
 
 ##
 
-## [L-5] Lack of Sanity/Threshold/Limit Checks
+## [L-6] Lack of Sanity/Threshold/Limit Checks
 
 Devoid of sanity/threshold/limit checks, critical parameters can be configured to invalid values, causing a variety of issues and breaking expected interactions within/between contracts. Consider adding proper uint256 validation as well as zero address checks in the constructor. A worst case scenario would render the contract needing to be re-deployed in the event of human/accidental errors that involve value assignments to immutable variables. If the validation procedure is unclear or too complex to implement on-chain, document the potential issues that could produce invalid values.
 
@@ -191,8 +189,134 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L218-L224
 
+##
 
-A single point of failure
+## [L-7] Token ownership is not checked before transfer 
+
+The safeTransferFrom function in the ERC-721 standard does not perform an ownership check on the token being transferred. Instead, it assumes that the caller of the function has the rightful ownership of the token and allows them to initiate the transfer.
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol
+
+68: IERC721(_localToken).safeTransferFrom(address(this), _to, _tokenId);
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol#L68
+
+##
+
+## [L-8] Tokenid Not checked whether this tokenid exist 
+
+##
+
+##
+
+## [L-] L2OutputOracle.proposeL2Output() can receive funds
+
+``payable`` for no apparent reason, so the contract can receive funds and there are no apparent mechanism to retrieve them. If ``payable`` is really relevant and the contract is expected to be able to receive funds, consider documenting it, otherwise it's possible that funds could be locked (no immediately visible/apparent/documented ways to retrieve funds)
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol
+
+179: function proposeL2Output(
+        bytes32 _outputRoot,
+        uint256 _l2BlockNumber,
+        bytes32 _l1BlockHash,
+        uint256 _l1BlockNumber
+    ) external payable {
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L179-L184
+
+### Recommended Mitigation:
+
+``payable`` is not necessary for the proposeL2Output function
+
+##
+
+## [L-] Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256
+
+### IMPACT
+
+By downcasting to uint128, the code is essentially truncating the higher-order bits of the original uint256 values, potentially resulting in loss of precision if the original values exceed the range of uint128. It's important to note that if the original uint256 values are larger than the maximum value representable by uint128, this downcasting may lead to unexpected behavior or data loss
+
+### ``block.timestamp,_l2BlockNumber`` uint256 values down casted to uint128 
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol
+
+225: timestamp: uint128(block.timestamp),
+226: l2BlockNumber: uint128(_l2BlockNumber)
+
+```
+
+### Recommended Mitigation Steps:
+Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256.
+
+##
+
+## [L-] Possibility of overflow when multiplying two uint256 values together
+
+There is a possibility of overflow when multiplying two uint256 values together. The result of the multiplication may exceed the maximum value that can be represented by a uint256
+
+
+
+
+
+
+
+Use require instead of assert 2
+
+Add deadline argument to structHash` variable 1
+
+A single point of failure 10
+
+Add verifyingContract to EIP712_DOMAIN_TYPEHASH
+
+BytecodeCompressor.publishCompressedBytecode() can receive funds
+
+No event emitted when updating a state variable
+
+ Unjustified unchecked
+
+(OOS) Discouraged use of safeApprove. Use safeIncreaseAllowance here instead
+
+No need to check that v == 27 || v == 28 with ecrecover
+
+Tautology when checking recoveredAddress
+
+191:         return recoveredAddress == address(this) && recoveredAddress != address(0);  
+Indeed:
+
+if recoveredAddress == address(this) is true, then recoveredAddress != address(0) will always be true
+if recoveredAddress == address(this) is false, then recoveredAddress != address(0) will never be evaluated
+
+Document why all fields under ZkSyncMeta aren't returned in SystemContractHelper.getZkSyncMeta()
+
+Default Visibility for constants 
+
+SystemContext.sol:48:    uint256 constant BLOCK_INFO_BLOCK_NUMBER_PART = 2 ** 128;  
+
+unction DefaultAccount._validateTransaction() shouln't check trx.value for required balance, maybe user wanted the transaction to fail. also maybe paymaster is going to transfer required balance later
+
+In functions unsafeOverrideBlock() and setNewBlock() of SystemContext, code should check that timestamp is less than BLOCK_INFO_BLOCK_NUMBER_PART, otherwise it can overflow and change the block number when combining them to calculate block info.
+
+Lose of precision 
+
+
+Avoid divide by zero 
+
+##
+
+
+
+## [NC] 
+
+
+
+
+
+
 
 
 
@@ -246,6 +370,15 @@ Consider more require check on top of the initialize() function to avoid unwante
 First check gaslimit then perform necessary value and state changes 
  
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L133-L143
+
+##
+
+## [NC] Meaning less variable declarations
+
+
+
+
+
 
  
 
