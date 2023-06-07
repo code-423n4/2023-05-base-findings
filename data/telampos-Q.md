@@ -1,0 +1,1 @@
+it can be used as it should, there are no problems or errors, everything works as it should. maybe there are some suggestions and inputs that can be taken such as: to make the design simpler and provide tips on tools there so that new users can understand the features better.
