@@ -1,6 +1,6 @@
 # QA Report
 ## Summary
-Total 07 Low and 08 Non-Critical
+Total 07 Low and 15 Non-Critical
 ### Low Risk Issues
 - [L-01] Erroneous comments in the `StandardBridge.sol` contract
 - [L-02] Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256
@@ -18,6 +18,14 @@ Total 07 Low and 08 Non-Critical
 - [N-06] According to the syntax rules, use => mapping ( instead of => mapping( using spaces as keyword
 - [N-07] Use named parameters for mapping type declarations
 - [N-08] MISSING address(0) CHECKS FOR CRITICAL CONSTRUCTOR INPUTS
+- [N-09] Use `bytes.concat()`
+- [N-10] Use Underscores for Number Literals
+- [N-11] ERROR MESSAGE FOR `initialize()` CAN BE MORE ACCURATE
+- [N-12] Contracts are not using their OZ Upgradeable counterparts
+- [N-13] Project Upgrade and Stop Scenario should be
+- [N-14] Constants on the left are better
+- [N-15] No need to initialize uints to zero
+
 
 ## [L-01] Erroneous comments in the `StandardBridge.sol` contract
 ### Descriptions:
@@ -201,4 +209,86 @@ File: L2OutputOracle.sol
 ```
 [OptimismPortal.sol#L157](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L157)
 [L2OutputOracle.sol#L107-L108](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L107-L108)
+
+## [N-09] Use `bytes.concat()`
+Solidity version 0.8.4 introduces bytes.concat() (vs abi.encodePacked(<bytes>,<bytes>))
+Eg:
+```
+File: OptimismPortal.sol
+472:        bytes memory opaqueData = abi.encodePacked(
+```
+[Link to code](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L472)
+
+## [N-10] Use Underscores for Number Literals
+```
+File: OptimismPortal.sol
+197:        return _byteCount * 16 + 21000;
+```
+[Link to code](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L197)
+
+## [N-11] ERROR MESSAGE FOR `initialize()` CAN BE MORE ACCURATE
+```
+File: L2OutputOracle.sol
+125:            _startingTimestamp <= block.timestamp, // @audit less than or equal to
+126:            "L2OutputOracle: starting L2 timestamp must be less than current time"
+```
+[Link to code](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L125-L126)
+### Recommendation:
+Consider change to: "L2OutputOracle:  starting L2 timestamp must be less than or equal to current time"
+
+
+## [N-12] Contracts are not using their OZ Upgradeable counterparts
+The non-upgradeable standard version of OpenZeppelin’s library are inherited / used by the contracts. It would be safer to use the upgradeable versions of the library contracts to avoid unexpected behaviour.
+```
+File: L2OutputOracle.sol
+4: import { Initializable } from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L4
+```
+File: OptimismPortal.sol
+4: import { Initializable } from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L4
+### Recomendation:
+Where applicable, use the contracts from @openzeppelin/contracts-upgradeable instead of @openzeppelin/contracts. See https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/proxy/utils/Initializable.sol
+
+## [N-13] Project Upgrade and Stop Scenario should be
+At the start of the project, the system may need to be stopped or upgraded, I suggest you have a script beforehand and add it to the documentation. This can also be called an ” EMERGENCY STOP (CIRCUIT BREAKER) PATTERN
+https://github.com/maxwoe/solidity_patterns/blob/master/security/EmergencyStop.sol
+
+## [N-14] Constants on the left are better
+If you use the constant first you support structures that veil programming errors. And one should only produce code either to add functionality, fix an programming error or trying to support structures to avoid programming errors (like design patterns).
+https://www.moserware.com/2008/01/constants-on-left-are-better-but-this.html
+Eg:
+```
+File: OptimismPortal.sol
+461:        require(_data.length <= 120_000, "OptimismPortal: data too large"); // @audit consider change to 120_000 >= _data.length
+```
+[Link to code](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L461)
+
+## [N-15] No need to initialize uints to zero
+There is no need to initialize `uint` variables to zero as their default value is `0`
+```
+File: L2OutputOracle.sol
+269:        uint256 lo = 0;
+```
+[L2OutputOracle.sol#L269](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L269)
+
+```
+File: OptimismPortal.sol
+40:    uint256 internal constant DEPOSIT_VERSION = 0;
+```
+[OptimismPortal.sol#L40](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L40)
+
+```
+File: SystemConfig.sol
+36:    uint256 public constant VERSION = 0;
+```
+[SystemConfig.sol#L36](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L36)
+
+```
+File: GasPriceOracle.sol
+118:        uint256 total = 0;
+```
+[GasPriceOracle.sol#L118](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol#L118)
 
