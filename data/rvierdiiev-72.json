@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "rvierdiiev",
+  "risk": "3",
+  "title": "Withdrawal with gas limit more than 28_750_517 can never be executed with CrossDomainMessenger",
+  "issueId": 72,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/72"
+}
