@@ -54,3 +54,25 @@ Manual Analysis
 ### Recommended Mitigation Steps
 
 Mitigation goes here
+
+# 3: IMPORTS CAN BE GROUPED TOGETHER
+
+Vulnerability details
+
+## Context:
+
+Imports can be grouped together.
+
+## Proof of Concept
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L4-L14
+
+## Tools Used
+
+Manual Analysis
+
+## Recommended Mitigation Steps
+
+Consider importing OZ first, then all interfaces, then all utils.
+
+
