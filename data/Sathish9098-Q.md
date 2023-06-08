@@ -4,12 +4,14 @@
 
 ## [L-1] No maximum limit for _gasLimit 
 
-Only Minimum value only checked.  
+### Impact
+
+Only Minimum value only checked. There is no limit or maxGas values. There is possibility that deployer assign very high gas values than expected.
 
 To ensure the contract operates predictably, avoids excessive gas consumption, and protects against potential attacks, it is generally recommended to set appropriate maximum gas limits for each function or transaction. The gas limit should be determined based on careful analysis of the contract's logic, potential gas consumption patterns, and consideration of security and cost-efficiency factors
 
 ```solidity
-FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
+FILE: optimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
 
 139:  gasLimit = _gasLimit;
 142:  require(_gasLimit >= minimumGasLimit(), "SystemConfig: gas limit too low");
@@ -78,6 +80,8 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ## [L-3] Use Ownable2StepUpgradeable rather than OwnableUpgradeable
 
+### Impact
+
 [Ownable2StepUpgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/25aabd286e002a1526c345c8db259d57bdf0ad28/contracts/access/Ownable2StepUpgradeable.sol#L47-L63) is an extension of the [OwnableUpgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/access/OwnableUpgradeable.sol) contract that adds an additional step to the ownership transfer process. The additional step requires the new owner to accept ownership before it is transferred. This helps prevent accidental transfers of ownership and provides an additional layer of security
 
 ```solidity
@@ -111,6 +115,14 @@ FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/universal
 
 ```
 https://github.com/ethereum-optimism/optimism/blob/941ae589b88e55183c7796ef8ad632bf5796e3df/packages/contracts-bedrock/contracts/universal/ProxyAdmin.sol#LL4C1-L4C70
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable.sol#L4
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable2.sol#L6
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L6
+
+
 
 ##
 
@@ -154,7 +166,8 @@ uint256[50] private __gap;
 
 ## [L-5] Missing Event for critical parameters initialize and change
 
-Description
+### Impact
+
 Events help non-contract tools to track changes, and events prevent users from being surprised by changes.
 
  it is recommended to emit an event for critical parameter changes. Missing events for critical parameters that change should be detected. This is because events allow capturing the changed parameters so that they can be tracked off-chain
@@ -170,6 +183,8 @@ Add Event-Emit
 ##
 
 ## [L-6] Lack of Sanity/Threshold/Limit Checks
+
+### Impact
 
 Devoid of sanity/threshold/limit checks, critical parameters can be configured to invalid values, causing a variety of issues and breaking expected interactions within/between contracts. Consider adding proper uint256 validation as well as zero address checks in the constructor. A worst case scenario would render the contract needing to be re-deployed in the event of human/accidental errors that involve value assignments to immutable variables. If the validation procedure is unclear or too complex to implement on-chain, document the potential issues that could produce invalid values.
 
@@ -188,6 +203,10 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L205-L210
 
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L218-L224
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1Block.sol#L79-L103
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1FeeVault.sol#L19
 
 ##
 
@@ -211,7 +230,9 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [L-] L2OutputOracle.proposeL2Output() can receive funds
+## [L-9] L2OutputOracle.proposeL2Output() can receive funds
+
+### Impact
 
 ``payable`` for no apparent reason, so the contract can receive funds and there are no apparent mechanism to retrieve them. If ``payable`` is really relevant and the contract is expected to be able to receive funds, consider documenting it, otherwise it's possible that funds could be locked (no immediately visible/apparent/documented ways to retrieve funds)
 
@@ -234,7 +255,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [L-] Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256
+## [L-10] Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256
 
 ### IMPACT
 
@@ -255,12 +276,182 @@ Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows
 
 ##
 
-## [L-] Possibility of overflow when multiplying two uint256 values together
+## [L-11] Can refactor the gasPrice(),baseFee() function into one since both returns the same values
 
-There is a possibility of overflow when multiplying two uint256 values together. The result of the multiplication may exceed the maximum value that can be represented by a uint256
+### Impact
+
+By refactoring the code in this way, you achieve the same outcome with a single function, eliminating redundancy and providing a simplified interface for accessing the shared value.
+
+```diff
+FILE: optimism/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol
+
+- 57: function gasPrice() public view returns (uint256) {
+- 58:        return block.basefee;
+- 59:    }
+
+- 66: function baseFee() public view returns (uint256) {
+- 67:        return block.basefee;
+- 68:    }
+
+Recommended Mitigation:
+
++ function getGasPriceOrBaseFee() public view returns (uint256) {
++        return block.basefee;
++    }
+
+``` 
+
+##
+
+## [L-12] Inconsistence solidity versions 
+
+If there are inconsistencies in the Solidity versions used in your codebase or contracts, it can lead to compilation errors and potential compatibility issues. Different Solidity versions may introduce changes, deprecate certain features, or modify syntax, resulting in code that may not compile or behave as expected
+
+- Compilation Errors
+- Syntax Differences
+- Compatibility Issues
+- Limited Access to New Features
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable.sol#L2
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L2
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/ResourceMetering.sol#L2
+
+### CrossDomainOwnable3.sol,CrossDomainOwnable.sol contracts using the lower version 0.8.0 but other contracts using 0.8.15
+
+Recommended Mitigation:
+Maintain same versions for all contracts 
+
+##
+
+## [L-13] Critical Address changes should use two step procedure 
+
+The critical procedures should be two step process.
+See similar findings in previous Code4rena contests for reference:
+https://code4rena.com/reports/2022-06-illuminate/#2-critical-changes-should-use-two-step-procedure
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
+
+180:function setUnsafeBlockSigner(address _unsafeBlockSigner) external onlyOwner {
+        _setUnsafeBlockSigner(_unsafeBlockSigner);
+
+        bytes memory data = abi.encode(_unsafeBlockSigner);
+        emit ConfigUpdate(VERSION, UpdateType.UNSAFE_BLOCK_SIGNER, data);
+    }
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#LL180C5-L185C6
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol
+
+function transferOwnership(address _owner, bool _isLocal) external onlyOwner {
+        require(_owner != address(0), "CrossDomainOwnable3: new owner is the zero address");
+
+        address oldOwner = owner();
+        _transferOwnership(_owner);
+        isLocal = _isLocal;
+
+        emit OwnershipTransferred(oldOwner, _owner, _isLocal);
+    }
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L37-L45
+
+##
+
+## [L-14] onlyOwner single point of failure 
+
+### Impact
+The ``onlyOwner`` role has a single point of failure and ``onlyOwner`` can use critical a few functions.
+
+Even if protocol admins/developers are not malicious there is still a chance for Owner keys to be stolen. In such a case, the attacker can cause serious damage to the project due to important functions. In such a case, users who have invested in project will suffer high financial losses.
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol
+
+function transferOwnership(address _owner, bool _isLocal) external onlyOwner {
+        require(_owner != address(0), "CrossDomainOwnable3: new owner is the zero address");
+
+        address oldOwner = owner();
+        _transferOwnership(_owner);
+        isLocal = _isLocal;
+
+        emit OwnershipTransferred(oldOwner, _owner, _isLocal);
+    }
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L37-L45
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
+
+180: function setUnsafeBlockSigner(address _unsafeBlockSigner) external onlyOwner {
+192: function setBatcherHash(bytes32 _batcherHash) external onlyOwner {
+205: function setGasConfig(uint256 _overhead, uint256 _scalar) external onlyOwner {
+218: function setGasLimit(uint64 _gasLimit) external onlyOwner {
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#LL218C5-L218C64
 
 
+### Recommended Mitigation Steps
+Add a time lock to critical functions. Admin-only functions that change critical parameters should emit events and have timelocks.
 
+Events allow capturing the changed parameters so that off-chain tools/interfaces can register such changes with timelocks that allow users to evaluate them and consider if they would like to engage/exit based on how they perceive the changes as affecting the trustworthiness of the protocol or profitability of the implemented financial services.
+
+Also detail them in documentation and NatSpec comments.
+
+##
+
+## [L-15] getL1GasUsed() estimates based on a simple gas cost calculation for zero and non-zero bytes. This is not accurately reflect the actual gas cost on the Ethereum network 
+
+Gas costs can vary based on the specific opcode operations executed, memory usage, storage interactions, and other factors
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol 
+
+ function getL1GasUsed(bytes memory _data) public view returns (uint256) {
+        uint256 total = 0;
+        uint256 length = _data.length;
+        for (uint256 i = 0; i < length; i++) {
+            if (_data[i] == 0) {
+                total += 4;
+            } else {
+                total += 16;
+            }
+        }
+        uint256 unsigned = total + overhead();
+        return unsigned + (68 * 16);
+    }
+
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol#L117-L130
+
+### Recommended Mitigation:
+
+it's recommended to use gas profiling tools, perform local testing, or simulate transactions in test environments to understand the gas 
+
+##
+
+## [L-16] Hard Coded Address for DEPOSITOR_ACCOUNT not appreciated 
+
+### Impact
+Hardcoding addresses can introduce security risks if the address is public and known to attackers. They can attempt to exploit vulnerabilities in your contract or target the hardcoded address directly
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L2/L1Block.sol
+
+19:  address public constant DEPOSITOR_ACCOUNT = 0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001;
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1Block.sol#LL19C4-L19C92
+
+### Recommended Mitigation:
+You can consider using configurable addresses or address registry patterns
 
 
 
@@ -373,7 +564,70 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [NC] Meaning less variable declarations
+## [NC] Use private for constants instead of public 
+
+If decide to change the value of a constant or modify its internal representation, using the private modifier allows you to make those changes without affecting external contracts or users. It provides you with the freedom to refactor your contract's internal logic without breaking the functionality of other contracts that depend on your constants.
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol
+
+28: uint256 public constant DECIMALS = 6;
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol#L28
+
+##
+
+## [NC] Use more recent version of solidity
+
+Latest solidity version is 0.8.19 
+
+### Instances 
+ALL SCOPE CONTRACTS
+
+Recommended Mitigation:
+Use at least solidity 0.8.17 
+
+##
+
+## [NC-] No same value input control 
+
+Ensure that the ownership transfer only occurs when the new owner address is different from the current owner address. If they are the same, the function will simply emit the event without modifying the ownership state
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L180-L185
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L192-L197
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L205-L211
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L218C5-L224
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L37-L45
+
+
+
+##
+
+## [N-] Add timelock for critical value changes 
+
+Adding a timelock mechanism for critical value changes is a good practice to enhance the security and governance of your smart contracts. A timelock introduces a delay between proposing a value change and actually executing it, allowing stakeholders to review and approve the change before it takes effect.
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L180-L185
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L192-L197
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L205-L211
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L218C5-L224
+
+##
+
+## [NC] Events added index fields 
+
+
+
+
+
 
 
 
