@@ -49,9 +49,8 @@ Total instances: 84
 
 &nbsp;
 
-&nbsp;
-
 # Low Risk Issues
+
 ## [L-01] Missing `address(0)` checks when assigning to `address` state variables
 
 <details><summary>Instances: 6</summary>
@@ -62,7 +61,7 @@ File: ../contracts/../contracts/L1/L1CrossDomainMessenger.sol
 31:         PORTAL = _portal;
 
 ```
-[L31](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L31)
+[L31](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L31)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -74,7 +73,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 158:         SYSTEM_CONFIG = _config;
 
 ```
-[L156](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L156), [L157](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L157), [L158](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L158)
+[L156](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L156), [L157](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L157), [L158](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L158)
 
 ```solidity
 File: ../contracts/../contracts/L1/L2OutputOracle.sol
@@ -84,7 +83,7 @@ File: ../contracts/../contracts/L1/L2OutputOracle.sol
 108:         CHALLENGER = _challenger;
 
 ```
-[L107](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L107), [L108](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L108)
+[L107](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L107), [L108](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L108)
 
 </details>
 
@@ -102,7 +101,7 @@ File: ../contracts/../contracts/L1/ResourceMetering.sol
 106:                 (targetResourceLimit * int256(uint256(config.baseFeeMaxChangeDenominator)));
 
 ```
-[L105](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/ResourceMetering.sol#L105)
+[L105](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/ResourceMetering.sol#L105)
 
 </details>
 
@@ -129,7 +128,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 133:     ) public initializer {
 
 ```
-[L125](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L125)
+[L125](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L125)
 
 ```solidity
 File: ../contracts/../contracts/L1/L1CrossDomainMessenger.sol
@@ -137,7 +136,7 @@ File: ../contracts/../contracts/L1/L1CrossDomainMessenger.sol
 38:     function initialize() public initializer {
 
 ```
-[L38](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L38)
+[L38](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L38)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -145,7 +144,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 165:     function initialize(bool _paused) public initializer {
 
 ```
-[L165](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L165)
+[L165](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L165)
 
 ```solidity
 File: ../contracts/../contracts/L1/L2OutputOracle.sol
@@ -156,7 +155,7 @@ File: ../contracts/../contracts/L1/L2OutputOracle.sol
 123:     {
 
 ```
-[L120](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L120)
+[L120](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L120)
 
 ```solidity
 File: ../contracts/../contracts/L2/L2CrossDomainMessenger.sol
@@ -164,7 +163,7 @@ File: ../contracts/../contracts/L2/L2CrossDomainMessenger.sol
 34:     function initialize() public initializer {
 
 ```
-[L34](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L34)
+[L34](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L34)
 
 </details>
 
@@ -186,7 +185,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 293:         );
 
 ```
-[L289](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L289)
+[L289](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L289)
 
 ```solidity
 File: ../contracts/../contracts/L1/ResourceMetering.sol
@@ -197,7 +196,7 @@ File: ../contracts/../contracts/L1/ResourceMetering.sol
 155:         uint256 gasCost = resourceCost / Math.max(block.basefee, 1 gwei);
 
 ```
-[L97](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/ResourceMetering.sol#L97), [L155](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/ResourceMetering.sol#L155)
+[L97](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/ResourceMetering.sol#L97), [L155](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/ResourceMetering.sol#L155)
 
 ```solidity
 File: ../contracts/../contracts/L2/GasPriceOracle.sol
@@ -205,7 +204,7 @@ File: ../contracts/../contracts/L2/GasPriceOracle.sol
 48:         uint256 scaled = unscaled / divisor;
 
 ```
-[L48](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L48)
+[L48](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L48)
 
 </details>
 
@@ -228,7 +227,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 293:         );
 
 ```
-[L289](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L289)
+[L289](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L289)
 
 ```solidity
 File: ../contracts/../contracts/L1/ResourceMetering.sol
@@ -239,7 +238,7 @@ File: ../contracts/../contracts/L1/ResourceMetering.sol
 155:         uint256 gasCost = resourceCost / Math.max(block.basefee, 1 gwei);
 
 ```
-[L97](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/ResourceMetering.sol#L97), [L155](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/ResourceMetering.sol#L155)
+[L97](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/ResourceMetering.sol#L97), [L155](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/ResourceMetering.sol#L155)
 
 ```solidity
 File: ../contracts/../contracts/L2/GasPriceOracle.sol
@@ -247,7 +246,7 @@ File: ../contracts/../contracts/L2/GasPriceOracle.sol
 48:         uint256 scaled = unscaled / divisor;
 
 ```
-[L48](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L48)
+[L48](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L48)
 
 </details>
 
@@ -266,7 +265,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 192:     function setBatcherHash(bytes32 _batcherHash) external onlyOwner {
 
 ```
-[L192](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L192)
+[L192](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L192)
 
 </details>
 
@@ -289,7 +288,7 @@ File: ../contracts/../contracts/L2/CrossDomainOwnable2.sol
 2: pragma solidity ^0.8.0;
 
 ```
-[L2](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/CrossDomainOwnable2.sol#L2)
+[L2](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/CrossDomainOwnable2.sol#L2)
 
 ```solidity
 File: ../contracts/../contracts/L2/CrossDomainOwnable.sol
@@ -297,7 +296,7 @@ File: ../contracts/../contracts/L2/CrossDomainOwnable.sol
 2: pragma solidity ^0.8.0;
 
 ```
-[L2](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/CrossDomainOwnable.sol#L2)
+[L2](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/CrossDomainOwnable.sol#L2)
 
 ```solidity
 File: ../contracts/../contracts/L2/CrossDomainOwnable3.sol
@@ -305,7 +304,7 @@ File: ../contracts/../contracts/L2/CrossDomainOwnable3.sol
 2: pragma solidity ^0.8.0;
 
 ```
-[L2](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/CrossDomainOwnable3.sol#L2)
+[L2](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/CrossDomainOwnable3.sol#L2)
 
 </details>
 
@@ -328,7 +327,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 16: contract SystemConfig is OwnableUpgradeable, Semver {
 
 ```
-[L16](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L16)
+[L16](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L16)
 
 </details>
 
@@ -349,7 +348,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 16: contract SystemConfig is OwnableUpgradeable, Semver {
 
 ```
-[L16](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L16)
+[L16](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L16)
 
 </details>
 
@@ -384,7 +383,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 133:     ) public initializer {
 
 ```
-[L93](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L93), [L125](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L125)
+[L93](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L93), [L125](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L125)
 
 ```solidity
 File: ../contracts/../contracts/L1/L1CrossDomainMessenger.sol
@@ -395,7 +394,7 @@ File: ../contracts/../contracts/L1/L1CrossDomainMessenger.sol
 30:     {
 
 ```
-[L27](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L27)
+[L27](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L27)
 
 ```solidity
 File: ../contracts/../contracts/L1/L1ERC721Bridge.sol
@@ -406,7 +405,7 @@ File: ../contracts/../contracts/L1/L1ERC721Bridge.sol
 31:     {}
 
 ```
-[L28](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1ERC721Bridge.sol#L28)
+[L28](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1ERC721Bridge.sol#L28)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -419,7 +418,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 155:     ) Semver(1, 6, 0) {
 
 ```
-[L150](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L150)
+[L150](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L150)
 
 ```solidity
 File: ../contracts/../contracts/L1/L1StandardBridge.sol
@@ -430,7 +429,7 @@ File: ../contracts/../contracts/L1/L1StandardBridge.sol
 101:     {}
 
 ```
-[L98](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1StandardBridge.sol#L98)
+[L98](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1StandardBridge.sol#L98)
 
 ```solidity
 File: ../contracts/../contracts/L1/L2OutputOracle.sol
@@ -446,7 +445,7 @@ File: ../contracts/../contracts/L1/L2OutputOracle.sol
 98:     ) Semver(1, 3, 0) {
 
 ```
-[L90](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L90)
+[L90](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L90)
 
 ```solidity
 File: ../contracts/../contracts/L2/L2CrossDomainMessenger.sol
@@ -457,7 +456,7 @@ File: ../contracts/../contracts/L2/L2CrossDomainMessenger.sol
 27:     {
 
 ```
-[L24](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L24)
+[L24](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L24)
 
 ```solidity
 File: ../contracts/../contracts/L2/SequencerFeeVault.sol
@@ -465,7 +464,7 @@ File: ../contracts/../contracts/L2/SequencerFeeVault.sol
 20:     constructor(address _recipient) FeeVault(_recipient, 10 ether) Semver(1, 1, 0) {}
 
 ```
-[L20](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/SequencerFeeVault.sol#L20)
+[L20](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/SequencerFeeVault.sol#L20)
 
 ```solidity
 File: ../contracts/../contracts/L2/L2ERC721Bridge.sol
@@ -476,7 +475,7 @@ File: ../contracts/../contracts/L2/L2ERC721Bridge.sol
 31:     {}
 
 ```
-[L28](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2ERC721Bridge.sol#L28)
+[L28](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2ERC721Bridge.sol#L28)
 
 ```solidity
 File: ../contracts/../contracts/L2/L2StandardBridge.sol
@@ -487,7 +486,7 @@ File: ../contracts/../contracts/L2/L2StandardBridge.sol
 69:     {}
 
 ```
-[L66](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2StandardBridge.sol#L66)
+[L66](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2StandardBridge.sol#L66)
 
 ```solidity
 File: ../contracts/../contracts/L2/L1FeeVault.sol
@@ -495,7 +494,7 @@ File: ../contracts/../contracts/L2/L1FeeVault.sol
 19:     constructor(address _recipient) FeeVault(_recipient, 10 ether) Semver(1, 1, 0) {}
 
 ```
-[L19](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L1FeeVault.sol#L19)
+[L19](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L1FeeVault.sol#L19)
 
 ```solidity
 File: ../contracts/../contracts/L2/BaseFeeVault.sol
@@ -503,11 +502,9 @@ File: ../contracts/../contracts/L2/BaseFeeVault.sol
 19:     constructor(address _recipient) FeeVault(_recipient, 10 ether) Semver(1, 1, 0) {}
 
 ```
-[L19](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/BaseFeeVault.sol#L19)
+[L19](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/BaseFeeVault.sol#L19)
 
 </details>
-
-&nbsp;
 
 &nbsp;
 
@@ -530,7 +527,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 461:         require(_data.length <= 120_000, "OptimismPortal: data too large");
 
 ```
-[L277](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L277), [L345](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L345), [L461](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L461)
+[L277](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L277), [L345](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L345), [L461](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L461)
 
 ```solidity
 File: ../contracts/../contracts/L1/L2OutputOracle.sol
@@ -538,7 +535,7 @@ File: ../contracts/../contracts/L1/L2OutputOracle.sol
 326:             l2Outputs.length == 0
 
 ```
-[L326](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L326)
+[L326](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L326)
 
 </details>
 
@@ -560,7 +557,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 219:         require(_gasLimit >= minimumGasLimit(), "SystemConfig: gas limit too low");
 
 ```
-[L142](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L142), [L219](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L219)
+[L142](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L142), [L219](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L219)
 
 </details>
 
@@ -584,7 +581,7 @@ File: ../contracts/../contracts/L1/L2OutputOracle.sol
 220:         emit OutputProposed(_outputRoot, nextOutputIndex(), _l2BlockNumber, block.timestamp);
 
 ```
-[L166](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L166), [L220](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L220)
+[L166](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L166), [L220](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L220)
 
 </details>
 
@@ -612,7 +609,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 80:     event ConfigUpdate(uint256 indexed version, UpdateType indexed updateType, bytes data);
 
 ```
-[L80](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L80)
+[L80](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L80)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -624,7 +621,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 132:     event Unpaused(address account);
 
 ```
-[L118](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L118), [L125](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L125), [L132](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L132)
+[L118](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L118), [L125](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L125), [L132](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L132)
 
 ```solidity
 File: ../contracts/../contracts/L1/L1StandardBridge.sol
@@ -644,7 +641,7 @@ File: ../contracts/../contracts/L1/L1StandardBridge.sol
 51:     );
 
 ```
-[L30](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1StandardBridge.sol#L30), [L46](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1StandardBridge.sol#L46)
+[L30](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1StandardBridge.sol#L30), [L46](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1StandardBridge.sol#L46)
 
 ```solidity
 File: ../contracts/../contracts/L2/CrossDomainOwnable3.sol
@@ -656,7 +653,7 @@ File: ../contracts/../contracts/L2/CrossDomainOwnable3.sol
 30:     );
 
 ```
-[L26](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/CrossDomainOwnable3.sol#L26)
+[L26](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/CrossDomainOwnable3.sol#L26)
 
 </details>
 
@@ -676,7 +673,7 @@ File: ../contracts/../contracts/L1/ResourceMetering.sol
 179:     function __ResourceMetering_init() internal onlyInitializing {
 
 ```
-[L179](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/ResourceMetering.sol#L179)
+[L179](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/ResourceMetering.sol#L179)
 
 </details>
 
@@ -697,7 +694,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 16: contract SystemConfig is OwnableUpgradeable, Semver {
 
 ```
-[L16](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L16)
+[L16](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L16)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -705,7 +702,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 23: contract OptimismPortal is Initializable, ResourceMetering, Semver {
 
 ```
-[L23](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L23)
+[L23](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L23)
 
 ```solidity
 File: ../contracts/../contracts/L1/L2OutputOracle.sol
@@ -713,7 +710,7 @@ File: ../contracts/../contracts/L1/L2OutputOracle.sol
 15: contract L2OutputOracle is Initializable, Semver {
 
 ```
-[L15](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L15)
+[L15](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L15)
 
 </details>
 
@@ -733,7 +730,7 @@ File: ../contracts/../contracts/L1/L1CrossDomainMessenger.sol
 64:     function _isUnsafeTarget(address _target) internal view override returns (bool) {
 
 ```
-[L45](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L45), [L57](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L57), [L64](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L64)
+[L45](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L45), [L57](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L57), [L64](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L64)
 
 ```solidity
 File: ../contracts/../contracts/L1/L1ERC721Bridge.sol
@@ -741,7 +738,7 @@ File: ../contracts/../contracts/L1/L1ERC721Bridge.sol
 77:     function _initiateBridgeERC721(
 
 ```
-[L77](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1ERC721Bridge.sol#L77)
+[L77](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1ERC721Bridge.sol#L77)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -749,7 +746,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 225:     function _resourceConfig()
 
 ```
-[L225](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L225)
+[L225](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L225)
 
 ```solidity
 File: ../contracts/../contracts/L2/L2CrossDomainMessenger.sol
@@ -761,7 +758,7 @@ File: ../contracts/../contracts/L2/L2CrossDomainMessenger.sol
 72:     function _isUnsafeTarget(address _target) internal view override returns (bool) {
 
 ```
-[L51](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L51), [L65](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L65), [L72](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L72)
+[L51](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L51), [L65](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L65), [L72](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L72)
 
 ```solidity
 File: ../contracts/../contracts/L2/L2ERC721Bridge.sol
@@ -769,7 +766,7 @@ File: ../contracts/../contracts/L2/L2ERC721Bridge.sol
 79:     function _initiateBridgeERC721(
 
 ```
-[L79](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2ERC721Bridge.sol#L79)
+[L79](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2ERC721Bridge.sol#L79)
 
 </details>
 
@@ -789,7 +786,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 461:         require(_data.length <= 120_000, "OptimismPortal: data too large");
 
 ```
-[L197](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L197), [L461](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L461)
+[L197](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L197), [L461](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L461)
 
 ```solidity
 File: ../contracts/../contracts/L2/GasPriceOracle.sol
@@ -803,7 +800,7 @@ File: ../contracts/../contracts/L2/GasPriceOracle.sol
 128:         return unsigned + (68 * 16);
 
 ```
-[L46](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L46), [L122](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L122), [L124](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L124), [L128](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L128)
+[L46](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L46), [L122](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L122), [L124](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L124), [L128](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L128)
 
 </details>
 
@@ -821,7 +818,7 @@ File: ../contracts/../contracts/L1/L1ERC721Bridge.sol
 20:     mapping(address => mapping(address => mapping(uint256 => bool))) public deposits;
 
 ```
-[L20](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1ERC721Bridge.sol#L20)
+[L20](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1ERC721Bridge.sol#L20)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -831,7 +828,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 77:     mapping(bytes32 => ProvenWithdrawal) public provenWithdrawals;
 
 ```
-[L72](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L72), [L77](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L77)
+[L72](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L72), [L77](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L77)
 
 ```solidity
 File: ../contracts/../contracts/L2/L2ToL1MessagePasser.sol
@@ -839,7 +836,7 @@ File: ../contracts/../contracts/L2/L2ToL1MessagePasser.sol
 32:     mapping(bytes32 => bool) public sentMessages;
 
 ```
-[L32](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L32)
+[L32](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L32)
 
 </details>
 
@@ -867,7 +864,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 196:     function minimumGasLimit(uint64 _byteCount) public pure returns (uint64) {
 
 ```
-[L162](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L162), [L189](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L189)
+[L162](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L162), [L189](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L189)
 
 </details>
 
@@ -890,7 +887,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 196:     function minimumGasLimit(uint64 _byteCount) public pure returns (uint64) {
 
 ```
-[L189](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L189)
+[L189](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L189)
 
 </details>
 
@@ -912,7 +909,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 45:     uint64 internal constant RECEIVE_DEFAULT_GAS_LIMIT = 100_000;
 
 ```
-[L40](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L40), [L45](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L45)
+[L40](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L40), [L45](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L45)
 
 ```solidity
 File: ../contracts/../contracts/L2/L2ToL1MessagePasser.sol
@@ -922,7 +919,7 @@ File: ../contracts/../contracts/L2/L2ToL1MessagePasser.sol
 37:     uint240 internal msgNonce;
 
 ```
-[L22](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L22), [L37](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L37)
+[L22](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L22), [L37](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L37)
 
 </details>
 
@@ -943,7 +940,7 @@ File: ../contracts/../contracts/L2/L2CrossDomainMessenger.sol
 44:     function l1CrossDomainMessenger() public view returns (address) {
 
 ```
-[L44](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L44)
+[L44](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2CrossDomainMessenger.sol#L44)
 
 ```solidity
 File: ../contracts/../contracts/L2/GasPriceOracle.sol
@@ -955,7 +952,7 @@ File: ../contracts/../contracts/L2/GasPriceOracle.sol
 103:     function decimals() public pure returns (uint256) {
 
 ```
-[L57](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L57), [L66](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L66), [L103](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L103)
+[L57](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L57), [L66](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L66), [L103](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L103)
 
 ```solidity
 File: ../contracts/../contracts/L2/SequencerFeeVault.sol
@@ -963,7 +960,7 @@ File: ../contracts/../contracts/L2/SequencerFeeVault.sol
 28:     function l1FeeWallet() public view returns (address) {
 
 ```
-[L28](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/SequencerFeeVault.sol#L28)
+[L28](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/SequencerFeeVault.sol#L28)
 
 </details>
 
@@ -991,7 +988,7 @@ File: ../contracts/../contracts/L2/CrossDomainOwnable2.sol
 2: pragma solidity ^0.8.0;
 
 ```
-[L2](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/CrossDomainOwnable2.sol#L2)
+[L2](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/CrossDomainOwnable2.sol#L2)
 
 ```solidity
 File: ../contracts/../contracts/L2/CrossDomainOwnable.sol
@@ -999,7 +996,7 @@ File: ../contracts/../contracts/L2/CrossDomainOwnable.sol
 2: pragma solidity ^0.8.0;
 
 ```
-[L2](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/CrossDomainOwnable.sol#L2)
+[L2](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/CrossDomainOwnable.sol#L2)
 
 ```solidity
 File: ../contracts/../contracts/L2/CrossDomainOwnable3.sol
@@ -1007,7 +1004,7 @@ File: ../contracts/../contracts/L2/CrossDomainOwnable3.sol
 2: pragma solidity ^0.8.0;
 
 ```
-[L2](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/CrossDomainOwnable3.sol#L2)
+[L2](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/CrossDomainOwnable3.sol#L2)
 
 </details>
 
@@ -1032,7 +1029,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 16: contract SystemConfig is OwnableUpgradeable, Semver {
 
 ```
-[L16](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L16)
+[L16](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L16)
 
 </details>
 
@@ -1050,7 +1047,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 43:     bytes32 public constant UNSAFE_BLOCK_SIGNER_SLOT = keccak256("systemconfig.unsafeblocksigner");
 
 ```
-[L36](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L36), [L43](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L43)
+[L36](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L36), [L43](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L43)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -1060,7 +1057,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 45:     uint64 internal constant RECEIVE_DEFAULT_GAS_LIMIT = 100_000;
 
 ```
-[L40](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L40), [L45](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L45)
+[L40](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L40), [L45](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L45)
 
 ```solidity
 File: ../contracts/../contracts/L2/GasPriceOracle.sol
@@ -1068,7 +1065,7 @@ File: ../contracts/../contracts/L2/GasPriceOracle.sol
 28:     uint256 public constant DECIMALS = 6;
 
 ```
-[L28](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/GasPriceOracle.sol#L28)
+[L28](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/GasPriceOracle.sol#L28)
 
 ```solidity
 File: ../contracts/../contracts/L2/L1Block.sol
@@ -1076,7 +1073,7 @@ File: ../contracts/../contracts/L2/L1Block.sol
 19:     address public constant DEPOSITOR_ACCOUNT = 0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001;
 
 ```
-[L19](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L1Block.sol#L19)
+[L19](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L1Block.sol#L19)
 
 ```solidity
 File: ../contracts/../contracts/L2/L2ToL1MessagePasser.sol
@@ -1086,7 +1083,7 @@ File: ../contracts/../contracts/L2/L2ToL1MessagePasser.sol
 27:     uint16 public constant MESSAGE_VERSION = 1;
 
 ```
-[L22](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L22), [L27](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L27)
+[L22](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L22), [L27](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L2/L2ToL1MessagePasser.sol#L27)
 
 </details>
 
@@ -1102,7 +1099,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 197:         return _byteCount * 16 + 21000;
 
 ```
-[L197](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L197)
+[L197](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L197)
 
 </details>
 
@@ -1122,7 +1119,7 @@ File: ../contracts/../contracts/L1/ResourceMetering.sol
 136:             params.prevBoughtGas = 0;
 
 ```
-[L136](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/ResourceMetering.sol#L136)
+[L136](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/ResourceMetering.sol#L136)
 
 </details>
 
@@ -1148,7 +1145,7 @@ File: ../contracts/../contracts/L1/SystemConfig.sol
 71:     ResourceMetering.ResourceConfig internal _resourceConfig;
 
 ```
-[L27](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L27), [L71](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/SystemConfig.sol#L71)
+[L27](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L27), [L71](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/SystemConfig.sol#L71)
 
 ```solidity
 File: ../contracts/../contracts/L1/L1CrossDomainMessenger.sol
@@ -1156,7 +1153,7 @@ File: ../contracts/../contracts/L1/L1CrossDomainMessenger.sol
 20:     OptimismPortal public immutable PORTAL;
 
 ```
-[L20](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L20)
+[L20](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L20)
 
 ```solidity
 File: ../contracts/../contracts/L1/ResourceMetering.sol
@@ -1164,7 +1161,7 @@ File: ../contracts/../contracts/L1/ResourceMetering.sol
 68:     uint256[48] private __gap;
 
 ```
-[L68](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/ResourceMetering.sol#L68)
+[L68](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/ResourceMetering.sol#L68)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -1176,7 +1173,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 60:     address public immutable GUARDIAN;
 
 ```
-[L50](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L50), [L55](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L55), [L60](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L60)
+[L50](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L50), [L55](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L55), [L60](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L60)
 
 ```solidity
 File: ../contracts/../contracts/L1/L2OutputOracle.sol
@@ -1192,7 +1189,7 @@ File: ../contracts/../contracts/L1/L2OutputOracle.sol
 40:     uint256 public immutable FINALIZATION_PERIOD_SECONDS;
 
 ```
-[L20](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L20), [L25](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L25), [L30](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L30), [L35](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L35), [L40](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L40)
+[L20](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L20), [L25](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L25), [L30](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L30), [L35](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L35), [L40](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L40)
 
 </details>
 
@@ -1212,7 +1209,7 @@ File: ../contracts/../contracts/L1/L1CrossDomainMessenger.sol
 20:     OptimismPortal public immutable PORTAL;
 
 ```
-[L20](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L20)
+[L20](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L1CrossDomainMessenger.sol#L20)
 
 ```solidity
 File: ../contracts/../contracts/L1/OptimismPortal.sol
@@ -1224,7 +1221,7 @@ File: ../contracts/../contracts/L1/OptimismPortal.sol
 60:     address public immutable GUARDIAN;
 
 ```
-[L50](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L50), [L55](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L55), [L60](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/OptimismPortal.sol#L60)
+[L50](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L50), [L55](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L55), [L60](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/OptimismPortal.sol#L60)
 
 ```solidity
 File: ../contracts/../contracts/L1/L2OutputOracle.sol
@@ -1240,7 +1237,7 @@ File: ../contracts/../contracts/L1/L2OutputOracle.sol
 40:     uint256 public immutable FINALIZATION_PERIOD_SECONDS;
 
 ```
-[L20](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L20), [L25](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L25), [L30](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L30), [L35](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L35), [L40](https://github.com/ethereum-optimism/optimism/tree/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/blob/main/../contracts/../contracts/L1/L2OutputOracle.sol#L40)
+[L20](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L20), [L25](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L25), [L30](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L30), [L35](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L35), [L40](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/main/../contracts/../contracts/L1/L2OutputOracle.sol#L40)
 
 </details>
 
