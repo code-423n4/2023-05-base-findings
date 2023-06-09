@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "ERC20 token bridge does not support token with different decimals",
+  "issueId": 117,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/117"
+}
