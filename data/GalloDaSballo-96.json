@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "GalloDaSballo",
+  "risk": "2",
+  "title": "CrossDomainCheck `RELAY_GAS_CHECK_BUFFER` should be increased to more than 7100 gas",
+  "issueId": 96,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/96"
+}
