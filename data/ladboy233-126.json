@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "ladboy233",
+  "risk": "3",
+  "title": "Legacy version check should be removed to avoid double relaying message in CrossDomainMessager.sol",
+  "issueId": 126,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/126"
+}
