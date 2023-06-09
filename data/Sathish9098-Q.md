@@ -2,6 +2,25 @@
 
 ##
 
+## [L-1] Unsafe Down casting 
+
+### Impact 
+When downcasting block.number from uint256 to uint64, you should exercise caution as it can be potentially unsafe. The ``block.number`` returns a uint256 value representing the current block number, which is guaranteed to fit within 256 bits.
+
+However, downcasting to uint64 may result in a loss of precision or ``potential truncation`` if the block number exceeds the range of uint64, which can lead to unexpected behavior or errors.
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L1/ResourceMetering.sol
+
+183: prevBlockNum: uint64(block.number)
+
+```
+### Recommended Mitigation Steps:
+Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256.
+
+
+##
+
 ## [L-1] No maximum limit for _gasLimit 
 
 ### Impact
@@ -459,6 +478,40 @@ You can consider using configurable addresses or address registry patterns
 [L-17] Use safeTransferOwnership instead of transferOwnership function
 
 
+##
+
+## [L-18] number,timestamp should be upgraded to uint256 prevent potential problems in the future
+
+Impact:
+``block.number`` represents the current block number, and ``timestamp`` represents the timestamp of the current block. Both values are expected to increase over time as the blockchain progresses. By using uint256, you can accommodate larger values and ensure that your code remains compatible with future blockchains that might have larger block numbers or timestamps.
+
+Using uint256 provides a wider range of values and reduces the risk of encountering overflow issues if the block number or timestamp exceeds the maximum value that can be stored in uint64. It also aligns with the natural data type for Ethereum's native arithmetic operations, which are typically performed with uint256.
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/L1Block.sol
+
+   /**
+     * @notice The latest L1 block number known by the L2 system.
+     */
+24:    uint64 public number;
+
+ /**
+     * @notice The latest L1 timestamp known by the L2 system.
+     */
+29:    uint64 public timestamp;
+
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1Block.sol#L21-L29
+
+### Recommended Mitigation
+Generally recommended to use uint256 for variables like block.number and timestamp to ensure compatibility and prevent potential problems in the future
+
+
+
+
+
+
 
 
 Use require instead of assert 2
@@ -625,129 +678,6 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L218C5-L224
 
-## NON CRITICAL FINDINGS
-
-##
-
-## [NC-1] Named imports can be used
-
-#### CONTEXT
-
-ALL CONTRACTS 
-
-It’s possible to name the imports to improve code readability. 
-
-E.g. import "@openzeppelin/contracts/token/ERC20/IERC20.sol"; can be rewritten as import {IERC20} from “import “@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol”;
-
-> Example 
-
-FILE : 2023-04-rubicon/contracts/BathHouseV2.sol
-
-```solidity 
-FILE : 2023-04-rubicon/contracts/BathHouseV2.sol
-
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "./compound-v2-fork/InterestRateModel.sol";
-import "./compound-v2-fork/CErc20Delegator.sol";
-import "./compound-v2-fork/Comptroller.sol";
-import "./compound-v2-fork/Unitroller.sol";
-import "./periphery/BathBuddy.sol";
-```
-[BathHouseV2.sol#L4-L9](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/BathHouseV2.sol#L4-L9)
-
-```solidity
-FILE: 2023-04-rubicon/contracts/RubiconMarket.sol
-
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/utils/StorageSlot.sol";
-
-```
-[RubiconMarket.sol#L11-L12](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L11-L12)
-
-```solidity
-FILE: 2023-04-rubicon/contracts/V2Migrator.sol
-
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./compound-v2-fork/CTokenInterfaces.sol";
-
-```
-[V2Migrator.sol#L4-L6](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/V2Migrator.sol#L4-L6)
-
-```solidity
-FILE: 2023-04-rubicon/contracts/periphery/BathBuddy.sol
-
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-
-```
-[BathBuddy.sol#L4-L7](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/periphery/BathBuddy.sol#L4-L7)
-
-```solidity
-FILE: 2023-04-rubicon/contracts/utilities/poolsUtility/Position.sol
-
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "../../compound-v2-fork/Comptroller.sol";
-import "../../compound-v2-fork/PriceOracle.sol";
-import "../../BathHouseV2.sol";
-import "../../RubiconMarket.sol";
-
-```
-[Position.sol#L4-L11](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L4-L11)
-
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/FeeWrapper.sol#L4-L5)
-
-### Recommended Mitigation
-
-Name the imports to all contract scopes to improve code readability
-
-##
-
-## [NC-2] Remove commented out code
-
-CONTEXT
-[RubiconMarket.sol](https://github.com/code-423n4/2023-04-rubicon/blob/main/contracts/RubiconMarket.sol)
-
-it's generally considered good practice to remove commented out code from a codebase once it's determined that it's no longer needed or relevant. This can help keep the codebase clean, readable, and maintainable, and can help prevent confusion or errors in the future
-
-##
-
-## [NC-3] Test environment comments and codes should not be in the main version
-
-```solidity
-FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
-
-5: // import "hardhat/console.sol";
-
-```
-##
-
-## [NC-7] Emit both old and new values in critical changes 
-
-Emitting old and new values when critical changes are made can help you improve the reliability, accuracy, and maintainability of your systems
-
-[RubiconMarket.sol#L25-L28](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L25-L28)
-
-##
-
-## [NC-8] Missing NATSPEC
-
-Consider adding NATSPEC on all public/external functions to improve documentation
-
-[RubiconMarket.sol#L25-L27](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L25-L27)
-[RubiconMarket.sol#L288-L293](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L288-L293)
-[RubiconMarket.sol#L1028-L1034](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1028-L1034)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L760-L766)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L780-L787)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L801-L810)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L824-L833)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L885-L892)
-
 ##
 
 ## [NC-9] For functions, follow Solidity standard naming conventions (internal function style rule)
@@ -757,53 +687,9 @@ The bellow codes don’t follow Solidity’s standard naming convention,
 
 internal and private functions and variables : the mixedCase format starting with an underscore (_mixedCase starting with an underscore)
 
-```solidity
-FILE : FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2ToL1MessagePasser.sol#L37
 
-35: function isAuthorized(address src) internal view returns (bool) {
-46: function add(uint256 x, uint256 y) internal pure returns (uint256 z) {
-50: function sub(uint256 x, uint256 y) internal pure returns (uint256 z) {
-54: function mul(uint256 x, uint256 y) internal pure returns (uint256 z) {
-58: function min(uint256 x, uint256 y) internal pure returns (uint256 z) {
-62: function max(uint256 x, uint256 y) internal pure returns (uint256 z) {
-66: function imin(int256 x, int256 y) internal pure returns (int256 z) {
-70: function imax(int256 x, int256 y) internal pure returns (int256 z) {
-77: function wmul(uint256 x, uint256 y) internal pure returns (uint256 z) {
-81: function rmul(uint256 x, uint256 y) internal pure returns (uint256 z) {
-85: function wdiv(uint256 x, uint256 y) internal pure returns (uint256 z) {
-89: function rdiv(uint256 x, uint256 y) internal pure returns (uint256 z) {
-
-227:  uint256 internal feeBPS;
-230:  address internal feeTo;
-```
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L125-L130)
-
-##
-
-## [NC-10] FUNCTIONS,PARAMETERS,MODIFIERS AND VARIABLES IN SNAKE CASE
-
-Use camel case for all functions, parameters and variables and snake case for constants
-
-Snake case examples
-The following variable names follow the snake case naming convention:
-
-this_is_snake_case
-build_docker_image
-
-Camel case examples
-The following are examples of variables that use the camel case naming convention:
-
-FileNotFoundException
-toString
-
-```solidity
-FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
-
-219: uint256 public last_offer_id;
-245: modifier can_buy(uint256 id) virtual {
-251: modifier can_cancel(uint256 id) virtual {
-719: modifier can_cancel(uint256 id) override {
-```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L55
 
 ##
 
@@ -815,48 +701,6 @@ In complex projects such as Defi, the interpretation of all functions and their 
 
 ### Recommendation
 NatSpec comments should be increased in Contracts
-
-##
-
-## [NC-13] NOT USING THE NAMED RETURN VARIABLES ANYWHERE IN THE FUNCTION IS CONFUSING
-
-Consider changing the variable to be an unnamed one
-
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L276)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L280)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L284)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L452-L454)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L491-L496)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L511-L518)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L578-L580)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L620-L622)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1028-L1034)
-
-##
-
-## [NC-14] Mark visibility of initialize(…) functions as external
-
-Description
-External instead of public would give more the sense of the initialize(…) functions to behave like a constructor (only called on deployment, so should only be called externally).
-
-Security point of view, it might be safer so that it cannot be called internally by accident in the child contract.
-
-It might cost a bit less gas to use external over public.
-
-It is possible to override a function from external to public (= “opening it up”) ✅
-but it is not possible to override a function from public to external (= “narrow it down”). ❌
-
-For above reasons you can change initialize(…) to external
-
-(https://github.com/OpenZeppelin/openzeppelin-contracts/issues/3750)
-
-```solidity
-FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
-
-700:  function initialize(address _feeTo) public {
-
-```
-[RubiconMarket.sol#L700](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L700)
 
 ##
 
@@ -899,64 +743,35 @@ All contracts should follow the solidity style guide
 
 ##
 
-## [NC-16] Pragma float
-
-[RubiconMarket.sol](https://github.com/code-423n4/2023-04-rubicon/blob/main/contracts/RubiconMarket.sol), [BathBuddy.sol](https://github.com/code-423n4/2023-04-rubicon/blob/main/contracts/periphery/BathBuddy.sol) both contracts using the floating pragma 
-
-### Recommendation
-Locking the pragma helps to ensure that contracts do not accidentally get deployed using an outdated compiler version.
-
-Note that pragma statements can be allowed to float when a contract is intended for consumption by other developers, as in the case with contracts in a library or a package
-
-##
-
-## [NC-17] Use solidity naming conventions for state variables 
-
-State variables name not starting with "_". The "_name" is reserved for internal/private functions and variables 
-
-(https://docs.soliditylang.org/en/v0.8.17/style-guide.html)
-
-```solidity
-FILE: 2023-04-rubicon/contracts/RubiconMarket.sol
-
-691: mapping(uint256 => sortInfo) public _rank; //doubly linked lists of sorted offer ids
-692: mapping(address => mapping(address => uint256)) public _best; //id of the highest offer for a token pair
-693: mapping(address => mapping(address => uint256)) public _span; //number of offers stored for token pair in sorted orderbook
-694: mapping(address => uint256) public _dust; //minimum sell amount for a token to avoid dust offers
-695: mapping(uint256 => uint256) public _near; //next unsorted offer id
-696: uint256 public _head; //first unsorted offer id
-
-```
-[RubiconMarket.sol#L691-L696](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L691-L696)
-
-##
-
-## [NC-18] Interchangeable usage of uint and uint256
-
-Consider using only one approach throughout the codebase, e.g. only uint or only uint256
-
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L781-L785)
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L918-L921)
-
-
-##
-
 ## [NC-19] TYPOS
 
 ```solidity
-FILE: 2023-04-rubicon/contracts/RubiconMarket.sol
+FILE: optimism/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol
 
-/// @audit multuple => multiple
-886:  /// @notice Batch offer functionality - multuple offers in a single transaction
+/// @audit unaliased meaning less word 
+48:  * @notice Overrides the implementation of the `onlyOwner` modifier to check that the unaliased
 
-/// @audit acumulator=> accumulator
-1051: fill_amt = add(fill_amt, offers[offerId].pay_amt); //Add amount bought to acumulator
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/L2StandardBridge.sol
 
-/// @audit acumulator=> accumulator
-1060: fill_amt = add(fill_amt, offers[offerId].pay_amt); //Add amount bought to acumulator
+/// @audit transfering => transferring 
+@notice The L2StandardBridge is responsible for transfering ETH and ERC20 tokens between L1 and
 
-/// @audit acumulator=> accumulator
-1091: fill_amt = add(fill_amt, offers[offerId].pay_amt); //Add amount bought to acumulator
+FILE: optimism/packages/contracts-bedrock/contracts/L1/L1StandardBridge.sol
+11: * @notice The L1StandardBridge is responsible for transfering ETH and ERC20 tokens between L1 and
+
+FILE: optimism/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol
+
+/// @audit whcih => which
+28: * @custom:field timestamp     Timestamp at whcih the withdrawal was proven.
+
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
+
+/// @audit derviation => derivation 
+13: *         configuration is stored on L1 and picked up by L2 as part of the derviation of the L2
+
+/// @audit distrubution=> distribution
+24: *                                    block distrubution.
+
 
 ```
 ## [NC-20] public functions not called by the contract should be declared external instead
