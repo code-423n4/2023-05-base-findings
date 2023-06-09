@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "Challenger can change the output root or delete output root arbitrarily to authorize invalid withdrawal or block withdrawal infinitely",
+  "issueId": 105,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/105"
+}
