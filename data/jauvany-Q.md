@@ -105,3 +105,21 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 Manual Analysis
 
+# 5: Large numeric literals should use underscores for readability
+
+Vulnerability details
+
+## Context:
+
+Large numeric literals should use underscores for readability
+
+## Proof of Concept
+
+> ***File: OptimismPortal.sol***
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L197
+
+## Tools Used
+
+Manual Analysis
+
