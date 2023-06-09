@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "ladboy233",
+  "risk": "3",
+  "title": "Permissionlessly block user's withdrawal with precise amount of gas to make sure SafeCall.hasMinGas(_minGasLimit, RELAY_RESERVED_GAS + RELAY_GAS_CHECK_BUFFER) return false",
+  "issueId": 124,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/124"
+}
