@@ -1,3 +1,60 @@
+## Summary
+### Issues List
+| Number |Issues Details|Context|
+|:--:|:-------|:--:|
+|[01]|Add require statement to constructor to prevent invalid portal address initialization.| L1CrossDomainMessenger.sol |
+|[02]|Check for a valid recipient address in the _sendMessage function| L1CrossDomainMessenger.sol |
+|[03]|Use IERC165 to indicate support for the L2OutputOracle interface| L1CrossDomainMessenger.sol |
+|[04]|Use modifiers to improve readability | L1CrossDomainMessenger.sol |
+|[05]|Update the error message for the timestamp require statement to include "or equal to" for better clarity. | L1CrossDomainMessenger.sol |
+|[06]|Remove unnecessary solhint-disable-next-line comment in code| L1CrossDomainMessenger.sol |
+|[07]|Gas limit for receive() function | OptimismPortal.sol |
+|[08]|Use named constants instead of magic numbers for better code readability| OptimismPortal.sol |
+|[09]|Missing function documentation| OptimismPortal.sol |
+|[10]|The function calls L2_ORACLE.getL2Output(_l2OutputIndex) twice. This can be optimized by storing the result in a variable and reusing it.| OptimismPortal.sol |
+|[11]|Define constant for magic number in multiple places| OptimismPortal.sol |
+|[12]|Optimize function call by storing result in variable| OptimismPortal.sol |
+|[13]|Use call function instead of SafeCall.callWithMinGas()| OptimismPortal.sol |
+|[14]|Use require statement with custom error message instead of separate if statement| OptimismPortal.sol |
+|[15]|Use external visibility modifier for public function| OptimismPortal.sol |
+|[16]|Define constant variable for maximum data length instead of using magic number| OptimismPortal.sol |
+|[17]|Error message consistency | OptimismPortal.sol |
+|[18]|Lack of input validation for _name and _symbol parameters| OptimismMintableERC20Factory.sol |
+|[19]|Redundant legacy function| OptimismMintableERC20Factory.sol |
+|[20]|Inconsistent event argument ordering| OptimismMintableERC20Factory.sol |
+|[21]|Lack of access control| OptimismMintableERC20Factory.sol |
+|[22]|No documentation for the Semver contract| OptimismMintableERC20Factory.sol |
+|[23]|Use of external visibility for some functions| SystemConfig.sol |
+|[24]|Improve storage usage for overhead and scalar| SystemConfig.sol |
+|[25]|Possible precision loss when computing target resource limit| SystemConfig.sol |
+|[26]|Use named constants instead of magic numbers| SystemConfig.sol |
+|[27]|Validate input data in a separate function before processing| SystemConfig.sol |
+|[28]|Improve error messages in require statements for better debugging| SystemConfig.sol |
+|[29]|Add brief comment at the beginning of the function to explain overall purpose and context| SystemConfig.sol |
+|[30]|Possible precision loss when computing target resource limit| SystemDictator.sol |
+|[31]|Use NatSpec comments for improved documentation and maintainability| SystemDictator.sol |
+|[32]|Change visibility of functions to external for contract owner use only| SystemDictator.sol |
+|[33]|Use of for loop in getL1GasUsed function| GasPriceOracle.sol |
+|[34]|Use constant variables with descriptive names instead of magic numbers for improved code maintainability and readability| GasPriceOracle.sol |
+|[35]|Emit events to track state changes and improve user experience| L1Block.sol |
+|[36]|Remove unnecessary @custom:semver tag from constructor function| L1Block.sol |
+|[37]|Emit events to track message passing between L1 and L2 and improve user experience| L2CrossDomainMessenger.sol |
+|[38]|Restrict visibility of initializer function to prevent unintended usage| L2CrossDomainMessenger.sol |
+|[39]|Use of AddressAliasHelper.undoL1ToL2Alias| L2CrossDomainMessenger.sol |
+|[40]|Reentrancy protection is missing| L2StandardBridge.sol |
+|[41]|Explanation of constructor functions in Solidity| L2ToL1MessagePasser.sol |
+|[42]|Use for arithmetic operations| L2ToL1MessagePasser.sol |
+|[43]|Upgradeability| ALL Contracts |
+|[44]|Reentrancy| ALL Contracts |
+|[45]|Code readability : Use better variable names for readability | ALL Contracts |
+|[46]|Function writing that does not comply with the Solidity Style Guide| ALL Contracts |
+
+
+Total 46 issues
+
+
+
+
 ## File -> L1CrossDomainMessenger.sol
 ### [01]Add a require statement to ensure that the _portal address provided in the constructor is not a zero address. This prevents the contract from being initialized with an invalid portal address. 
 
