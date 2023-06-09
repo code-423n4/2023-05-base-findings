@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "LES (Light Ethereum Subprotocol) doesn't forward the transaction to the sequencer",
+  "issueId": 107,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/107"
+}
