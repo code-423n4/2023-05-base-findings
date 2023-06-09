@@ -13,7 +13,7 @@ Total 4 issues 26 instances
 
 ## Findings
 
-### [L-01] Add Event-Emit for State Changes
+### [L-01] abi.encodePacked() should not be used with dynamic types when passing the result toa hash function such as keccak256()
 
 Using ```abi.encodePacked()``` with variable length arguments can lead to a hash collision. Since ```xDomainCalldata``` is type ```bytes``` , it is recommended to use ```abi.encode``` instead.
 For more information:
@@ -28,7 +28,7 @@ bytes32 relayId = keccak256(abi.encodePacked(xDomainCalldata, msg.sender, block.
 1 file 1 instance
 
 
-### [NC-01] Missing Event for initialize
+### [NC-01] Floating Pragma 
 
 Contracts should be deployed with the same compiler version and flags that they have been tested with thoroughly. Locking the pragma helps to ensure that contracts do not accidentally get deployed using, for example, an outdated compiler version that might introduce bugs that affect the contract system negatively. For more detail:
 [SWC-103](https://swcregistry.io/docs/SWC-103)
