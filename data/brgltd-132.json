@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "brgltd",
+  "risk": "2",
+  "title": "Technically the seven days period is not guaranteed and it's possible for the challenger to delete a withdrawal even if it hasn't been challenged during the seven days",
+  "issueId": 132,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/132"
+}
