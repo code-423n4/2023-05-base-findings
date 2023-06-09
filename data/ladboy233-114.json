@@ -1,0 +1,8 @@
+{
+  "contest": 241,
+  "handle": "ladboy233",
+  "risk": "2",
+  "title": "Attacker can steal CrossDomainMessenger and OptimismPortal token balances or tokens of anyone give approval for those contracts",
+  "issueId": 114,
+  "issueUrl": "https://github.com/code-423n4/2023-05-base-findings/issues/114"
+}
