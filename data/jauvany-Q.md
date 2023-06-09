@@ -76,3 +76,32 @@ Manual Analysis
 Consider importing OZ first, then all interfaces, then all utils.
 
 
+# 4: WORD & TYPING TYPOS
+
+Vulnerability details
+
+## Context:
+
+Word & typing typos
+
+## Proof of Concept
+
+__transfering__  can be changed to __transferring__  in the following comment.
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1StandardBridge.sol#L11
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2StandardBridge.sol#L13
+
+__be send__  can be changed to __be sent__  in the following comment.
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2ToL1MessagePasser.sol#L44
+
+__mloads__  can be changed to __loads__  in the following comment.
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L256
+
+
+## Tools Used
+
+Manual Analysis
+
