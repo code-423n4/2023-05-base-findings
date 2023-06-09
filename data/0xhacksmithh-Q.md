@@ -1,5 +1,7 @@
 ### [Low-01] Absence of Zero-address check while setting Critical `state variable`
 In Some cases `state variable` are `immutables`. So there should be definitely checks for Zero-addresses.
+
+*Instances(3)*
 ```
 File:: L1/L1CrossDomainMessenger.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1CrossDomainMessenger.sol#L31
@@ -15,6 +17,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ### [Low-02] Absence of `_disableInitializers()` in `constructor` which inheriting Openzeppelin `Initializable`
 
+*Instances(5)*
 ```
 File:: L1/L1CrossDomainMessenger.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1CrossDomainMessenger.sol#L32
@@ -31,12 +34,21 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 File:: L1/SystemConfig.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L93
 ```
+```
+File: L2/L2CrossDomainMessenger.sol
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2CrossDomainMessenger.sol#L28
+```
 
 ### [Low-03] Some Functions should be `payable` which interacting with `ETH` like Sending `ETH` to others
 
+*Instances(2)*
 ```
 File:: L1/L1CrossDomainMessenger.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1CrossDomainMessenger.sol#L45-L52
+```
+```
+File: L2/L2CrossDomainMessenger.sol
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2CrossDomainMessenger.sol#L56
 ```
 
 ### [Low-04] Absence of `_minGasLimit` value check on first place before passing this as parameter to other function.
@@ -47,6 +59,8 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
     }
 ```
 There should be a check which ensure that entered `_minGasLimit` should be equal or Greater than gas consumption according to `_extraData` passed.
+
+*Instances(4)*
 ```
 File:: L1/L1StandardBridge.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1StandardBridge.sol#L119-L121
@@ -58,6 +72,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 ### [Low-05] No Upper limit present while setting Uints (like `timestamp`, `fee` etc)
 While setting timestamp if no upper limit present then time could set to Very far or very past due to human error, if this state variable `immutable` then will cost to redeploy contracts again.
 
+*Instances(3)*
 ```
 File:: L1/L2OutputOracle.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L99
@@ -80,6 +95,7 @@ So when querying via `getL2Output()` its should revert for deleted `_l2OutputInd
     }
 ```
 
+*Instances(1)*
 ```
 File:: L1/L2OutputOracle.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L239-L245
@@ -88,6 +104,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 ### [Low-07] `ETH` May stuck in some contract files
 Some contracts implemented `payable` or `receive()` which helps contracts to accept `eth` but doesn't implemented any rescue functions in that contract
 
+*Instances(1)*
 ```
 File:: L1/OptimismPortal.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L215-L217
@@ -149,6 +166,8 @@ and similar like
 -            revert("OptimismPortal: withdrawal failed");
 -        }
 ```
+
+*Instances(2)*
 ```
 File:: L1/OptimismPortal.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L403-L419
@@ -161,6 +180,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 ### [Low-09] `abi.encodePacked()` Should not used with dynamic inputed parameters
 This code lead to signature mallability
 
+*Instances(1)*
 ```
 File:: L1/OptimismPortal.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L472-L478
@@ -175,6 +195,7 @@ Should be a check which ensure `_gasLimit` passed in function parameter also mat
         );
 ```
 
+*Instances(1)*
 ```
 File:: L1/OptimismPortal.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L452-L455
@@ -182,6 +203,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ### [Low-11] `Zero Address` check should be preform with `assembly`
 
+*Instances(1)*
 ```
 File:: L1/OptimismPortal.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L445
@@ -189,6 +211,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ### [Low-12] Instead of `OwnableUpgradeable.sol`, `Ownable2Upgradeable.sol` Should be used 
 
+*Instances(1)*
 ```
 File: L1/SystemConfig.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L6
@@ -196,6 +219,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ### [Low-13] Owner can `renounceOwnerShip()`, So It should be `disabled` in `constructor`
 
+*Instances(1)*
 ```
 File: L1/SystemConfig.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L134
@@ -203,6 +227,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ### [Low-14] Transfer of `ownership` should be a 2-step process
 
+*Instances(1)*
 ```
 File: L1/SystemConfig.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L135
@@ -216,6 +241,8 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
             "SystemConfig: precision loss with target resource limit"
         );
 ```
+
+*Instances(1)*
 ```
 File: L1/SystemConfig.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L289-L293
@@ -224,6 +251,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 ### [Low-16] `L1ERC721Bridge.sol` Can't able to handel coming `NFT`
 No Nft receiver function implemented in that contract.
 
+*Instances(1)*
 ```
 File: L1/L1ERC721Bridge.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol
@@ -263,31 +291,53 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
         emit ERC721BridgeInitiated(_localToken, _remoteToken, _from, _to, _tokenId, _extraData);
     }
 ```
+
+*Instances(1)*
 ```
 File: L1/L1ERC721Bridge.sol
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol#L100
 ```
 
-### [Low-]
+### [Low-18] While setting `withdrawalHash` to `setMessages` mapping `initiateWithdrawal()` does not check that this `Hash` already existed in that `mapping` or not
 
-```
-File: 
+```solidity
+    function initiateWithdrawal(
+        address _target,
+        uint256 _gasLimit,
+        bytes memory _data
+    ) public payable {
+        bytes32 withdrawalHash = Hashing.hashWithdrawal(
+            Types.WithdrawalTransaction({
+                nonce: messageNonce(),
+                sender: msg.sender,
+                target: _target,
+                value: msg.value,
+                gasLimit: _gasLimit,
+                data: _data
+            })
+        );
+
+-       sentMessages[withdrawalHash] = true; 
+
++       if(!sentMessages[withdrawalHash]){
++             sentMessages[withdrawalHash] = true;
++       }
+.........
+.........
 ```
 
-### [Low-]
 
+*Instances(1)*
 ```
-File: 
-```
-
-### [Low-]
-
-```
-File: 
+File: L2/L2ToL1MessagePasser.sol
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2ToL1MessagePasser.sol#L114
 ```
 
-### [Low-]
+### [Low-19] `gasPrice()` function returning `block.basefee` while it should return `gas fee`
+block.basefee is denominated in the base fee units, not in Ether or Wei. To convert it to Ether or Wei, you would need to perform the appropriate conversion
 
+*Instances(1)*
 ```
-File: 
+File: L2/GasPriceOracle.sol
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol#L57-L59
 ```
