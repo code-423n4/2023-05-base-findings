@@ -123,3 +123,23 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 Manual Analysis
 
+
+# 6: Upgradeable contract is missing a __gap[50] storage variable to allow for new storage variables in later versions
+
+Vulnerability details
+
+## Context:
+
+See [this](https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps) link for a description of this storage variable. While some contracts may not currently be sub-classed, adding the variable now protects against forgetting to add it in the future.
+
+## Proof of Concept
+
+> ***File: SystemConfig.sol***
+
+contract SystemConfig is OwnableUpgradeable, Semver 
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L16
+
+## Tools Used
+
+Manual Analysis
