@@ -317,3 +317,22 @@ The contract does not use the ReentrancyGuard modifier to protect against reentr
 ### [45] Code readability : Use better variable names for readability 
 
 
+### [46] Function writing that does not comply with the Solidity Style Guide
+for example : L2OutputOracle.sol
+
+#### Description
+Order of Functions; ordering helps readers identify which functions they can call and to find the constructor and fallback definitions easier. But there are contracts in the project that do not comply with this.
+
+(https://docs.soliditylang.org/en/v0.8.17/style-guide.html)
+
+Functions should be grouped according to their visibility and ordered:
+
+- constructor
+- receive function (if exists)
+- fallback function (if exists)
+- external
+- public
+- internal
+- private
+
+within a grouping, place the view and pure functions last
