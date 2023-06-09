@@ -1,8 +1,303 @@
 # LOW FINDINGS
 
+| Issue Count | Issues | Instances |
+| -------------- | -------------- | -------------- |
+| [L-1]| L2OutputOracle.proposeL2Output() can receive funds | 1 |
+| [L-2] | Use Ownable2StepUpgradeable rather than OwnableUpgradeable | 5 |
+| [L-3]| onlyOwner single point of failure  | 5 |
+| [L-4] | Avoid using tx.origin  | 1 |
+| [L-5] | Usage of tranferFrom function is discouraged | 1 |
+| [L-6] | Hard Coded Address for DEPOSITOR_ACCOUNT not appreciated | 1 |
+| [L-7] | ``number,timestamp`` should be upgraded to uint256 prevent potential problems in the future | 2 |
+| [L-8] | getL1GasUsed() estimates based on a simple gas cost calculation for zero and non-zero bytes. This is not accurately reflect the actual gas cost on the Ethereum network  | 1 |
+| [L-9] | Unsafe Down casting  | 3 |
+| [L-10] | Possible to front-run the initialize() function in certain scenarios | 3 |
+| [L-11] | Can refactor the gasPrice(),baseFee() function into one since both returns the same values | 1 |
+| [L-12] | No Storage Gap for SystemConfig and SystemDictator Contract  | 2 |
+| [L-13] | Missing Event for critical parameters initialize and change | 3 |
+| [L-14] | Lack of Sanity/Threshold/Limit Checks | 8 |
+| [L-15] | Token ownership and approval, is not checked before transfer  | 1 |
+| [L-16] | Inconsistence solidity versions  | - |
+| [L-17] | Critical Address changes should use two step procedure  | 2 |
+| [L-18] | Hardcoded the RECEIVE_DEFAULT_GAS_LIMIT may cause problems in the future  | 1 |
+| [L-19] | No maximum limit for _gasLimit  | 1 |
+| [L-20] | Any one can call burn() and remove all the Ether (ETH) held by the contract | 1 |
+
+
+# NON CRITICAL FINDINGS
+
+| Issue Count | Issues | Instances |
+| -------------- | -------------- | -------------- |
+| [NC-1] | Consider disabling renounceOwnership()  | 2 |
+| [NC-2] | Do not calculate constants every time  | 1 |
+| [NC-3] | EXPRESSIONS FOR CONSTANT VALUES SUCH AS A CALL TO KECCAK(), SHOULD USE IMMUTABLE RATHER THAN CONSTANT | 1 |
+| [NC-4] | Move require check on top of the initialize() function | 1 |
+| [NC-5] | Use private for constants instead of public  | 6 |
+| [NC-6] | Use more recent version of solidity | - |
+| [NC-7] | No same value input control  | 5 |
+| [NC-8] | Add timelock for critical value changes  | 4 |
+| [NC-9] | For functions, follow Solidity standard naming conventions (internal function style rule) | 2 |
+| [NC-10] | NATSPEC COMMENTS SHOULD BE INCREASED IN CONTRACTS | - |
+| [NC-11] | Contract layout and order of functions | - |
+| [NC-12] | TYPOS | 6 |
+| [NC-13] | Use SMTChecker | - |
+| [NC-14] | Constants on the left are better | 1 |
+| [NC-15] | According to the syntax rules, use => mapping ( instead of => mapping( using spaces as keyword|3|
+| [NC-16] | Assembly Codes Specific – Should Have Comments | 3 |
+| [NC-17] | Event is not properly indexed | 3 |
+| [NC-18] | Consider using named mappings| 3 |
+| [NC-19] | Public functions not called by contract can be declared external  | - |
+| [NC-20] | _recipient can be a address(0) | 1 |
+
 ##
 
-## [L-1] Unsafe Down casting 
+## [L-1] L2OutputOracle.proposeL2Output() can receive funds
+
+### Impact
+
+``payable`` for no apparent reason, so the contract can receive funds and there are no apparent mechanism to retrieve them. If ``payable`` is really relevant and the contract is expected to be able to receive funds, consider documenting it, otherwise it's possible that funds could be locked (no immediately visible/apparent/documented ways to retrieve funds)
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol
+
+179: function proposeL2Output(
+        bytes32 _outputRoot,
+        uint256 _l2BlockNumber,
+        bytes32 _l1BlockHash,
+        uint256 _l1BlockNumber
+    ) external payable {
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L179-L184
+
+### Recommended Mitigation:
+
+``payable`` is not necessary for the proposeL2Output function
+
+##
+
+## [L-2] Use Ownable2StepUpgradeable rather than OwnableUpgradeable
+
+### Impact
+
+[Ownable2StepUpgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/25aabd286e002a1526c345c8db259d57bdf0ad28/contracts/access/Ownable2StepUpgradeable.sol#L47-L63) is an extension of the [OwnableUpgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/access/OwnableUpgradeable.sol) contract that adds an additional step to the ownership transfer process. The additional step requires the new owner to accept ownership before it is transferred. This helps prevent accidental transfers of ownership and provides an additional layer of security
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
+
+4: import {
+    OwnableUpgradeable
+} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L4-L6
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/deployment
+/SystemDictator.sol
+
+4: import {
+    OwnableUpgradeable
+} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/deployment/SystemDictator.sol#L4-L6
+
+### Use Ownable2step rather than Ownable 
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/universal
+/ProxyAdmin.sol
+
+4: import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
+
+```
+https://github.com/ethereum-optimism/optimism/blob/941ae589b88e55183c7796ef8ad632bf5796e3df/packages/contracts-bedrock/contracts/universal/ProxyAdmin.sol#LL4C1-L4C70
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable.sol#L4
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable2.sol#L6
+
+##
+
+## [L-3] onlyOwner single point of failure 
+
+### Impact
+The ``onlyOwner`` role has a single point of failure and ``onlyOwner`` can use critical a few functions.
+
+Even if protocol admins/developers are not malicious there is still a chance for Owner keys to be stolen. In such a case, the attacker can cause serious damage to the project due to important functions. In such a case, users who have invested in project will suffer high financial losses.
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol
+
+function transferOwnership(address _owner, bool _isLocal) external onlyOwner {
+        require(_owner != address(0), "CrossDomainOwnable3: new owner is the zero address");
+
+        address oldOwner = owner();
+        _transferOwnership(_owner);
+        isLocal = _isLocal;
+
+        emit OwnershipTransferred(oldOwner, _owner, _isLocal);
+    }
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L37-L45
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
+
+180: function setUnsafeBlockSigner(address _unsafeBlockSigner) external onlyOwner {
+192: function setBatcherHash(bytes32 _batcherHash) external onlyOwner {
+205: function setGasConfig(uint256 _overhead, uint256 _scalar) external onlyOwner {
+218: function setGasLimit(uint64 _gasLimit) external onlyOwner {
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#LL218C5-L218C64
+
+
+### Recommended Mitigation Steps
+Add a time lock to critical functions. Admin-only functions that change critical parameters should emit events and have timelocks.
+
+Events allow capturing the changed parameters so that off-chain tools/interfaces can register such changes with timelocks that allow users to evaluate them and consider if they would like to engage/exit based on how they perceive the changes as affecting the trustworthiness of the protocol or profitability of the implemented financial services.
+
+Also detail them in documentation and NatSpec comments.
+
+##
+
+## [L-4] Avoid using tx.origin 
+
+### Impact
+tx.origin is a global variable in Solidity that returns the address of the account that sent the transaction.
+
+Using the variable could make a contract vulnerable if an authorized account calls a malicious contract. You can impersonate a user using a third party contract.
+
+This can make it easier to create a vault on behalf of another user with an external administrator (by receiving it as an argument)
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol
+
+417: if (success == false && tx.origin == Constants.ESTIMATION_ADDRESS) {
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L417
+
+### Recommended Mitigation
+
+Consider using msg.sender which helps maintain the security and integrity of your contract 
+
+##
+
+## [L-5] Usage of tranferFrom function is discouraged
+
+As per [ERC721 Docs](https://docs.openzeppelin.com/contracts/2.x/api/token/erc721) tranferFrom function is discouraged
+
+```
+transferFrom(address from, address to, uint256 tokenId) public
+
+Transfers the ownership of a given token ID to another address. Usage of this method is discouraged, use safeTransferFrom whenever possible. Requires the msg.sender to be the owner, approved, or operator.
+
+```
+### Impact
+
+The reason for discouraging the use of transferFrom is primarily for security purposes. The transferFrom function requires the msg.sender (the caller of the function) to be the owner of the token, approved by the owner, or an approved operator. This requirement ensures that only authorized entities can transfer the token
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol
+
+101: IERC721(_localToken).transferFrom(_from, address(this), _tokenId);
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol#L101
+
+### Recommended Mitigation
+
+use safeTransferFrom() function
+
+
+##
+
+## [L-6] Hard Coded Address for DEPOSITOR_ACCOUNT not appreciated 
+
+### Impact
+Hardcoding addresses can introduce security risks if the address is public and known to attackers. They can attempt to exploit vulnerabilities in your contract or target the hardcoded address directly
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L2/L1Block.sol
+
+19:  address public constant DEPOSITOR_ACCOUNT = 0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001;
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1Block.sol#LL19C4-L19C92
+
+### Recommended Mitigation:
+You can consider using configurable addresses or address registry patterns
+
+##
+
+## [L-7] ``number,timestamp`` should be upgraded to uint256 prevent potential problems in the future
+
+Impact:
+``block.number`` represents the current block number, and ``timestamp`` represents the timestamp of the current block. Both values are expected to increase over time as the blockchain progresses. By using uint256, you can accommodate larger values and ensure that your code remains compatible with future blockchains that might have larger block numbers or timestamps.
+
+Using uint256 provides a wider range of values and reduces the risk of encountering overflow issues if the block number or timestamp exceeds the maximum value that can be stored in uint64. It also aligns with the natural data type for Ethereum's native arithmetic operations, which are typically performed with uint256.
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/L1Block.sol
+
+   /**
+     * @notice The latest L1 block number known by the L2 system.
+     */
+24:    uint64 public number;
+
+ /**
+     * @notice The latest L1 timestamp known by the L2 system.
+     */
+29:    uint64 public timestamp;
+
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1Block.sol#L21-L29
+
+### Recommended Mitigation
+Generally recommended to use uint256 for variables like block.number and timestamp to ensure compatibility and prevent potential problems in the future
+
+
+##
+
+## [L-8] getL1GasUsed() estimates based on a simple gas cost calculation for zero and non-zero bytes. This is not accurately reflect the actual gas cost on the Ethereum network 
+
+### Impact
+
+Gas costs can vary based on the specific opcode operations executed, memory usage, storage interactions, and other factors
+
+```solidity
+FILE: optimism/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol 
+
+ function getL1GasUsed(bytes memory _data) public view returns (uint256) {
+        uint256 total = 0;
+        uint256 length = _data.length;
+        for (uint256 i = 0; i < length; i++) {
+            if (_data[i] == 0) {
+                total += 4;
+            } else {
+                total += 16;
+            }
+        }
+        uint256 unsigned = total + overhead();
+        return unsigned + (68 * 16);
+    }
+
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol#L117-L130
+
+### Recommended Mitigation:
+
+it's recommended to use gas profiling tools, perform local testing, or simulate transactions in test environments to understand the gas 
+
+##
+
+## [L-9] Unsafe Down casting 
 
 ### Impact 
 When downcasting block.number from uint256 to uint64, you should exercise caution as it can be potentially unsafe. The ``block.number`` returns a uint256 value representing the current block number, which is guaranteed to fit within 256 bits.
@@ -15,38 +310,20 @@ FILE: optimism/packages/contracts-bedrock/contracts/L1/ResourceMetering.sol
 183: prevBlockNum: uint64(block.number)
 
 ```
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol
+
+225: timestamp: uint128(block.timestamp),
+226: l2BlockNumber: uint128(_l2BlockNumber)
+
+```
 ### Recommended Mitigation Steps:
 Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256.
 
-
 ##
 
-## [L-1] No maximum limit for _gasLimit 
-
-### Impact
-
-Only Minimum value only checked. There is no limit or maxGas values. There is possibility that deployer assign very high gas values than expected.
-
-To ensure the contract operates predictably, avoids excessive gas consumption, and protects against potential attacks, it is generally recommended to set appropriate maximum gas limits for each function or transaction. The gas limit should be determined based on careful analysis of the contract's logic, potential gas consumption patterns, and consideration of security and cost-efficiency factors
-
-```solidity
-FILE: optimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
-
-139:  gasLimit = _gasLimit;
-142:  require(_gasLimit >= minimumGasLimit(), "SystemConfig: gas limit too low");
-
-```
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L142
-
-### Recommended Mitigation
-
-- Consider to implement maximumGasLimit() check
-
-- maximumGasLimit(),minimumGasLimit() values determined based on careful analysis. Both Values should be updated based on analysis by Owner  
-
-##
-
-## [L-2] Possible to front-run the initialize() function in certain scenarios
+## [L-10] Possible to front-run the initialize() function in certain scenarios
 
 - Front-running refers to the act of observing pending transactions in the mempool and quickly submitting a transaction with a higher gas price to get ahead of the original transaction. In the case of the initialize() function, if the function is publicly accessible and can be called by anyone, it is susceptible to front-running.
 
@@ -93,59 +370,40 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L120-L131
 
-### Recommended Mitigation 
+### Recommended Mitigation
+Add control initialize() functions 
+ 
 
 ##
 
-## [L-3] Use Ownable2StepUpgradeable rather than OwnableUpgradeable
+## [L-11] Can refactor the gasPrice(),baseFee() function into one since both returns the same values
 
 ### Impact
 
-[Ownable2StepUpgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/25aabd286e002a1526c345c8db259d57bdf0ad28/contracts/access/Ownable2StepUpgradeable.sol#L47-L63) is an extension of the [OwnableUpgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/access/OwnableUpgradeable.sol) contract that adds an additional step to the ownership transfer process. The additional step requires the new owner to accept ownership before it is transferred. This helps prevent accidental transfers of ownership and provides an additional layer of security
+By refactoring the code in this way, you achieve the same outcome with a single function, eliminating redundancy and providing a simplified interface for accessing the shared value.
 
-```solidity
-FILE: optimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
+```diff
+FILE: optimism/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol
 
-4: import {
-    OwnableUpgradeable
-} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+- 57: function gasPrice() public view returns (uint256) {
+- 58:        return block.basefee;
+- 59:    }
 
-```
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L4-L6
+- 66: function baseFee() public view returns (uint256) {
+- 67:        return block.basefee;
+- 68:    }
 
-```solidity
-FILE: optimism/packages/contracts-bedrock/contracts/deployment
-/SystemDictator.sol
+Recommended Mitigation:
 
-4: import {
-    OwnableUpgradeable
-} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
++ function getGasPriceOrBaseFee() public view returns (uint256) {
++        return block.basefee;
++    }
 
-```
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/deployment/SystemDictator.sol#L4-L6
-
-### Use Ownable2step rather than Ownable 
-
-```solidity
-FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/universal
-/ProxyAdmin.sol
-
-4: import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-
-```
-https://github.com/ethereum-optimism/optimism/blob/941ae589b88e55183c7796ef8ad632bf5796e3df/packages/contracts-bedrock/contracts/universal/ProxyAdmin.sol#LL4C1-L4C70
-
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable.sol#L4
-
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable2.sol#L6
-
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L6
-
-
+``` 
 
 ##
 
-## [L-4] No Storage Gap for SystemConfig and SystemDictator Contract 
+## [L-12] No Storage Gap for SystemConfig and SystemDictator Contract 
 
 [SystemConfig.sol#L16](https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L16)
 
@@ -183,7 +441,7 @@ uint256[50] private __gap;
 
 ##
 
-## [L-5] Missing Event for critical parameters initialize and change
+## [L-13] Missing Event for critical parameters initialize and change
 
 ### Impact
 
@@ -193,15 +451,18 @@ Events help non-contract tools to track changes, and events prevent users from b
 
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L125-L143
 
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/deployment/SystemDictator.sol#L193-L198
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L120-L131
 
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L165-L169
 
-Recommendation
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1Block.sol#L79-L103
+
+### Recommendation
 Add Event-Emit
 
 ##
 
-## [L-6] Lack of Sanity/Threshold/Limit Checks
+## [L-14] Lack of Sanity/Threshold/Limit Checks
 
 ### Impact
 
@@ -229,9 +490,9 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [L-7] Token ownership is not checked before transfer 
+## [L-15] Token ownership and approval, is not checked before transfer 
 
-The safeTransferFrom function in the ERC-721 standard does not perform an ownership check on the token being transferred. Instead, it assumes that the caller of the function has the rightful ownership of the token and allows them to initiate the transfer.
+The address executing the safeTransferFrom function should have the necessary ownership or approval to transfer the token. Otherwise, the function call will revert, and the transfer will not occur
 
 ```solidity
 FILE: optimism/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol
@@ -241,88 +502,16 @@ FILE: optimism/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol
 ```
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol#L68
 
-##
-
-## [L-8] Tokenid Not checked whether this tokenid exist 
-
-##
-
-##
-
-## [L-9] L2OutputOracle.proposeL2Output() can receive funds
-
-### Impact
-
-``payable`` for no apparent reason, so the contract can receive funds and there are no apparent mechanism to retrieve them. If ``payable`` is really relevant and the contract is expected to be able to receive funds, consider documenting it, otherwise it's possible that funds could be locked (no immediately visible/apparent/documented ways to retrieve funds)
-
-```solidity
-FILE: optimism/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol
-
-179: function proposeL2Output(
-        bytes32 _outputRoot,
-        uint256 _l2BlockNumber,
-        bytes32 _l1BlockHash,
-        uint256 _l1BlockNumber
-    ) external payable {
-
-```
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L179-L184
-
 ### Recommended Mitigation:
+ Implement proper security measures before token transfer 
 
-``payable`` is not necessary for the proposeL2Output function
 
-##
-
-## [L-10] Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256
-
-### IMPACT
-
-By downcasting to uint128, the code is essentially truncating the higher-order bits of the original uint256 values, potentially resulting in loss of precision if the original values exceed the range of uint128. It's important to note that if the original uint256 values are larger than the maximum value representable by uint128, this downcasting may lead to unexpected behavior or data loss
-
-### ``block.timestamp,_l2BlockNumber`` uint256 values down casted to uint128 
-
-```solidity
-FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol
-
-225: timestamp: uint128(block.timestamp),
-226: l2BlockNumber: uint128(_l2BlockNumber)
-
-```
-
-### Recommended Mitigation Steps:
-Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256.
 
 ##
 
-## [L-11] Can refactor the gasPrice(),baseFee() function into one since both returns the same values
+## [L-16] Inconsistence solidity versions 
 
 ### Impact
-
-By refactoring the code in this way, you achieve the same outcome with a single function, eliminating redundancy and providing a simplified interface for accessing the shared value.
-
-```diff
-FILE: optimism/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol
-
-- 57: function gasPrice() public view returns (uint256) {
-- 58:        return block.basefee;
-- 59:    }
-
-- 66: function baseFee() public view returns (uint256) {
-- 67:        return block.basefee;
-- 68:    }
-
-Recommended Mitigation:
-
-+ function getGasPriceOrBaseFee() public view returns (uint256) {
-+        return block.basefee;
-+    }
-
-``` 
-
-##
-
-## [L-12] Inconsistence solidity versions 
 
 If there are inconsistencies in the Solidity versions used in your codebase or contracts, it can lead to compilation errors and potential compatibility issues. Different Solidity versions may introduce changes, deprecate certain features, or modify syntax, resulting in code that may not compile or behave as expected
 
@@ -337,14 +526,16 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/ResourceMetering.sol#L2
 
-### CrossDomainOwnable3.sol,CrossDomainOwnable.sol contracts using the lower version 0.8.0 but other contracts using 0.8.15
+```
+CrossDomainOwnable3.sol,CrossDomainOwnable.sol contracts using the lower version 0.8.0 but other contracts using 0.8.15
 
-Recommended Mitigation:
+```
+### Recommended Mitigation:
 Maintain same versions for all contracts 
 
 ##
 
-## [L-13] Critical Address changes should use two step procedure 
+## [L-17] Critical Address changes should use two step procedure 
 
 The critical procedures should be two step process.
 See similar findings in previous Code4rena contests for reference:
@@ -381,211 +572,89 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [L-14] onlyOwner single point of failure 
 
-### Impact
-The ``onlyOwner`` role has a single point of failure and ``onlyOwner`` can use critical a few functions.
+##
 
-Even if protocol admins/developers are not malicious there is still a chance for Owner keys to be stolen. In such a case, the attacker can cause serious damage to the project due to important functions. In such a case, users who have invested in project will suffer high financial losses.
+## [L-18] Hardcoded the RECEIVE_DEFAULT_GAS_LIMIT may cause problems in the future 
+
+The variable ``RECEIVE_DEFAULT_GAS_LIMIT`` is defined as constant and once value is assigned cannot be changed later.
+
+EVM-Based blockchains are hardforked and there is no such thing as Gas Limit etc. values may change, this has happened in the past, so it is recommended to have this value updated in the future.
 
 ```solidity
-FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol
+FILE: optimism/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol
 
-function transferOwnership(address _owner, bool _isLocal) external onlyOwner {
-        require(_owner != address(0), "CrossDomainOwnable3: new owner is the zero address");
-
-        address oldOwner = owner();
-        _transferOwnership(_owner);
-        isLocal = _isLocal;
-
-        emit OwnershipTransferred(oldOwner, _owner, _isLocal);
-    }
+45: uint64 internal constant RECEIVE_DEFAULT_GAS_LIMIT = 100_000;
 
 ```
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L37-L45
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#LL45C1-L45C1
+
+##
+
+## [L-19] No maximum limit for _gasLimit 
+
+### Impact
+
+Only Minimum value only checked. There is no limit or maxGas values. There is possibility that deployer assign very high gas values than expected.
+
+To ensure the contract operates predictably, avoids excessive gas consumption, and protects against potential attacks, it is generally recommended to set appropriate maximum gas limits for each function or transaction. The gas limit should be determined based on careful analysis of the contract's logic, potential gas consumption patterns, and consideration of security and cost-efficiency factors
 
 ```solidity
 FILE: optimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
 
-180: function setUnsafeBlockSigner(address _unsafeBlockSigner) external onlyOwner {
-192: function setBatcherHash(bytes32 _batcherHash) external onlyOwner {
-205: function setGasConfig(uint256 _overhead, uint256 _scalar) external onlyOwner {
-218: function setGasLimit(uint64 _gasLimit) external onlyOwner {
+139:  gasLimit = _gasLimit;
+142:  require(_gasLimit >= minimumGasLimit(), "SystemConfig: gas limit too low");
 
 ```
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#LL218C5-L218C64
-
-
-### Recommended Mitigation Steps
-Add a time lock to critical functions. Admin-only functions that change critical parameters should emit events and have timelocks.
-
-Events allow capturing the changed parameters so that off-chain tools/interfaces can register such changes with timelocks that allow users to evaluate them and consider if they would like to engage/exit based on how they perceive the changes as affecting the trustworthiness of the protocol or profitability of the implemented financial services.
-
-Also detail them in documentation and NatSpec comments.
-
-##
-
-## [L-15] getL1GasUsed() estimates based on a simple gas cost calculation for zero and non-zero bytes. This is not accurately reflect the actual gas cost on the Ethereum network 
-
-Gas costs can vary based on the specific opcode operations executed, memory usage, storage interactions, and other factors
-
-```solidity
-FILE: optimism/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol 
-
- function getL1GasUsed(bytes memory _data) public view returns (uint256) {
-        uint256 total = 0;
-        uint256 length = _data.length;
-        for (uint256 i = 0; i < length; i++) {
-            if (_data[i] == 0) {
-                total += 4;
-            } else {
-                total += 16;
-            }
-        }
-        uint256 unsigned = total + overhead();
-        return unsigned + (68 * 16);
-    }
-
-
-```
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol#L117-L130
-
-### Recommended Mitigation:
-
-it's recommended to use gas profiling tools, perform local testing, or simulate transactions in test environments to understand the gas 
-
-##
-
-## [L-16] Hard Coded Address for DEPOSITOR_ACCOUNT not appreciated 
-
-### Impact
-Hardcoding addresses can introduce security risks if the address is public and known to attackers. They can attempt to exploit vulnerabilities in your contract or target the hardcoded address directly
-
-```solidity
-FILE: optimism/packages/contracts-bedrock/contracts/L2/L1Block.sol
-
-19:  address public constant DEPOSITOR_ACCOUNT = 0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001;
-
-```
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1Block.sol#LL19C4-L19C92
-
-### Recommended Mitigation:
-You can consider using configurable addresses or address registry patterns
-
-##
-
-
-[L-17] Use safeTransferOwnership instead of transferOwnership function
-
-
-##
-
-## [L-18] number,timestamp should be upgraded to uint256 prevent potential problems in the future
-
-Impact:
-``block.number`` represents the current block number, and ``timestamp`` represents the timestamp of the current block. Both values are expected to increase over time as the blockchain progresses. By using uint256, you can accommodate larger values and ensure that your code remains compatible with future blockchains that might have larger block numbers or timestamps.
-
-Using uint256 provides a wider range of values and reduces the risk of encountering overflow issues if the block number or timestamp exceeds the maximum value that can be stored in uint64. It also aligns with the natural data type for Ethereum's native arithmetic operations, which are typically performed with uint256.
-
-```solidity
-FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/L1Block.sol
-
-   /**
-     * @notice The latest L1 block number known by the L2 system.
-     */
-24:    uint64 public number;
-
- /**
-     * @notice The latest L1 timestamp known by the L2 system.
-     */
-29:    uint64 public timestamp;
-
-
-```
-https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1Block.sol#L21-L29
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L142
 
 ### Recommended Mitigation
-Generally recommended to use uint256 for variables like block.number and timestamp to ensure compatibility and prevent potential problems in the future
 
+- Consider to implement maximumGasLimit() check
 
-
-
-
-
-
-
-Use require instead of assert 2
-
-Add deadline argument to structHash` variable 1
-
-A single point of failure 10
-
-Add verifyingContract to EIP712_DOMAIN_TYPEHASH
-
-BytecodeCompressor.publishCompressedBytecode() can receive funds
-
-No event emitted when updating a state variable
-
- Unjustified unchecked
-
-(OOS) Discouraged use of safeApprove. Use safeIncreaseAllowance here instead
-
-No need to check that v == 27 || v == 28 with ecrecover
-
-Tautology when checking recoveredAddress
-
-191:         return recoveredAddress == address(this) && recoveredAddress != address(0);  
-Indeed:
-
-if recoveredAddress == address(this) is true, then recoveredAddress != address(0) will always be true
-if recoveredAddress == address(this) is false, then recoveredAddress != address(0) will never be evaluated
-
-Document why all fields under ZkSyncMeta aren't returned in SystemContractHelper.getZkSyncMeta()
-
-Default Visibility for constants 
-
-SystemContext.sol:48:    uint256 constant BLOCK_INFO_BLOCK_NUMBER_PART = 2 ** 128;  
-
-unction DefaultAccount._validateTransaction() shouln't check trx.value for required balance, maybe user wanted the transaction to fail. also maybe paymaster is going to transfer required balance later
-
-In functions unsafeOverrideBlock() and setNewBlock() of SystemContext, code should check that timestamp is less than BLOCK_INFO_BLOCK_NUMBER_PART, otherwise it can overflow and change the block number when combining them to calculate block info.
-
-Lose of precision 
-
-
-Avoid divide by zero 
+- maximumGasLimit(),minimumGasLimit() values determined based on careful analysis. Both Values should be updated based on analysis by Owner  
 
 ##
 
+## [L-20] Any one can call burn() and remove all the Ether (ETH) held by the contract
+
+### Impact
+The burn function allows anyone to call it and remove all the Ether (ETH) held by the contract from the state
+
+```solidity
+FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/L2ToL1MessagePasser.sol
+
+85: function burn() external {
+        uint256 balance = address(this).balance;
+        Burn.eth(balance);
+        emit WithdrawerBalanceBurnt(balance);
+    }
+
+```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2ToL1MessagePasser.sol#L85-L89
+
+### Recommended Mitigation
+
+Consider implementing proper access restrictions, permission checks, or other security measures to ensure that only authorized entities can invoke critical functions like burn
 
 
-## [NC] 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+##
 
 # NON CRITICAL FINDINGS
 
 ##
 
-## [NC-1] Owner Can renounce the Ownership
+## [NC-1] Consider disabling renounceOwnership() 
 
+If the plan for your project does not include eventually giving up all ownership control, consider overwriting OpenZeppelin's Ownable's renounceOwnership() function in order to disable it.
 
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L4-L6
 
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L6
 
+##
 
-## [NC-1] Do not calculate constants every time 
+## [NC-2] Do not calculate constants every time 
 
 it is generally a good practice to avoid calculating constants every time they are needed. Instead, you can define them as constants and assign them a value.
 
@@ -599,7 +668,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [NC-2] EXPRESSIONS FOR CONSTANT VALUES SUCH AS A CALL TO KECCAK(), SHOULD USE IMMUTABLE RATHER THAN CONSTANT
+## [NC-3] EXPRESSIONS FOR CONSTANT VALUES SUCH AS A CALL TO KECCAK(), SHOULD USE IMMUTABLE RATHER THAN CONSTANT
 
 While it doesn’t save any gas because the compiler knows that developers often make this mistake, it’s still best to use the right tool for the task at hand. There is a difference between constant variables and immutable variables, and they should each be used in their appropriate contexts. constants should be used for literal values written into the code, and immutable variables should be used for expressions, or values calculated in, or passed into the constructor
 
@@ -613,7 +682,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [NC-3] Move require check on top of the initialize() function
+## [NC-4] Move require check on top of the initialize() function
 
 Consider more require check on top of the initialize() function to avoid unwanted revert after all state changes.
 First check gaslimit then perform necessary value and state changes 
@@ -622,7 +691,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [NC] Use private for constants instead of public 
+## [NC-5] Use private for constants instead of public 
 
 If decide to change the value of a constant or modify its internal representation, using the private modifier allows you to make those changes without affecting external contracts or users. It provides you with the freedom to refactor your contract's internal logic without breaking the functionality of other contracts that depend on your constants.
 
@@ -634,9 +703,19 @@ FILE: optimism/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol
 ```
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol#L28
 
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L36
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L43
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1Block.sol#L19
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2ToL1MessagePasser.sol#L27
+
+
+
 ##
 
-## [NC] Use more recent version of solidity
+## [NC-6] Use more recent version of solidity
 
 Latest solidity version is 0.8.19 
 
@@ -648,7 +727,7 @@ Use at least solidity 0.8.17
 
 ##
 
-## [NC-] No same value input control 
+## [NC-7] No same value input control 
 
 Ensure that the ownership transfer only occurs when the new owner address is different from the current owner address. If they are the same, the function will simply emit the event without modifying the ownership state
 
@@ -662,11 +741,9 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L37-L45
 
-
-
 ##
 
-## [N-] Add timelock for critical value changes 
+## [NC-8] Add timelock for critical value changes 
 
 Adding a timelock mechanism for critical value changes is a good practice to enhance the security and governance of your smart contracts. A timelock introduces a delay between proposing a value change and actually executing it, allowing stakeholders to review and approve the change before it takes effect.
 
@@ -693,7 +770,7 @@ https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cb
 
 ##
 
-## [NC-12] NATSPEC COMMENTS SHOULD BE INCREASED IN CONTRACTS
+## [NC-10] NATSPEC COMMENTS SHOULD BE INCREASED IN CONTRACTS
 
 It is recommended that Solidity contracts are fully annotated using NatSpec for all public interfaces (everything in the ABI). It is clearly stated in the Solidity official documentation.
 In complex projects such as Defi, the interpretation of all functions and their arguments and returns is important for code readability and auditability.
@@ -704,7 +781,7 @@ NatSpec comments should be increased in Contracts
 
 ##
 
-## [NC-15] Contract layout and order of functions
+## [NC-11] Contract layout and order of functions
 
 The Solidity style guide recommends declaring state variables before all functions. 
 
@@ -743,179 +820,35 @@ All contracts should follow the solidity style guide
 
 ##
 
-## [NC-19] TYPOS
+## [NC-12] TYPOS
 
-```solidity
+
 FILE: optimism/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol
-
 /// @audit unaliased meaning less word 
 48:  * @notice Overrides the implementation of the `onlyOwner` modifier to check that the unaliased
 
 FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L2/L2StandardBridge.sol
-
 /// @audit transfering => transferring 
 @notice The L2StandardBridge is responsible for transfering ETH and ERC20 tokens between L1 and
 
 FILE: optimism/packages/contracts-bedrock/contracts/L1/L1StandardBridge.sol
+/// @audit transfering => transferring 
 11: * @notice The L1StandardBridge is responsible for transfering ETH and ERC20 tokens between L1 and
 
 FILE: optimism/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol
-
 /// @audit whcih => which
 28: * @custom:field timestamp     Timestamp at whcih the withdrawal was proven.
 
 FILE: Breadcrumbsoptimism/packages/contracts-bedrock/contracts/L1/SystemConfig.sol
-
 /// @audit derviation => derivation 
 13: *         configuration is stored on L1 and picked up by L2 as part of the derviation of the L2
 
 /// @audit distrubution=> distribution
 24: *                                    block distrubution.
 
-
-```
-## [NC-20] public functions not called by the contract should be declared external instead
-
-Contracts are [allowed](https://docs.soliditylang.org/en/latest/contracts.html#function-overriding) to override their parents’ functions and change the visibility from external to public.
-
-```solidity
-FILE: 2023-04-rubicon/contracts/BathHouseV2.sol
-
-45: function getBathTokenFromAsset(
-        address asset
-    ) public view returns (address) {
-
-```
-[BathHouseV2.sol#L45-L47](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/BathHouseV2.sol#L45-L47)
-
-```solidity
-FILE: 2023-04-rubicon/contracts/RubiconMarket.sol
-
-574:  function getFeeBPS() public view returns (uint256) {
-1010: function getFirstUnsortedOffer() public view returns (uint256) {
-1016: function getNextUnsortedOffer(uint256 id) public view returns (uint256) {
-1020: function isOfferSorted(uint256 id) public view returns (bool) {
-
-1165: function getPayAmountWithFee(
-        ERC20 pay_gem,
-        ERC20 buy_gem,
-        uint256 buy_amt
-    ) public view returns (uint256 fill_amt) {
-
-
-```
-[RubiconMarket.sol#L574](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L574)
-
 ##
 
-## [NC-21] Use scientific notations rather than exponential notations
-
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1175-L1177
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1142-L1144
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1099-L1101
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1057-L1059
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L331
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L317
-
-##
-
-## [NC-22] Use underscores for number literals
-
-```solidity
-FILE: 2023-04-rubicon/contracts/utilities/poolsUtility/Position.sol
-
-459: uint256 _fee = _maxFill.mul(rubiconMarket.getFeeBPS()).div(10000);
-481: uint256 _fee = _minFill.mul(_feeBPS).div(10000);
-490:  _fee = _payAmount.mul(_feeBPS).div(10000);
-
-```
-```solidity
-FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
-
-346:  uint256 mFee = mul(spend, makerFee()) / 100_000;
-338:  uint256 fee = mul(spend, feeBPS) / 100_000;
-
-583:  _amount -= mul(amount, feeBPS) / 100_000;
-583: _amount -= mul(amount, makerFee()) / 100_000;
-
-```
-[RubiconMarket.sol#L583](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L583)
-
-
-### Recommended Mitigation
-
-```solidity
-459: uint256 _fee = _maxFill.mul(rubiconMarket.getFeeBPS()).div(10_000);
-
-```
-
-##
-
-## [NC-23] Unused variables 
-
-```solidity
-
-warning[5667]: Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
-   --> contracts/utilities/poolsUtility/Position.sol:528:9:
-    |
-528 |         address _asset,
-    |         ^^^^^^^^^^^^^^
-
-warning[2072]: Warning: Unused local variable.
-   --> contracts/RubiconMarket.sol:298:9:
-    |
-298 |         uint256 id = uint256(id_);
-    |         ^^^^^^^^^^
-
-
-```
-
-##
-
-## [NC-24] Keccak Constant values should used to immutable rather than constant
-
-There is a difference between constant variables and immutable variables, and they should each be used in their appropriate contexts.
-
-While it doesn’t save any gas because the compiler knows that developers often make this mistake, it’s still best to use the right tool for the task at hand
-
-```solidity
-FILE: 2023-04-rubicon/contracts/RubiconMarket.sol
-
-232: bytes32 internal constant MAKER_FEE_SLOT = keccak256("WOB_MAKER_FEE");
-
-```
-[RubiconMarket.sol#L232](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L232)
-
-##
-
-## [Nc-25] Tokens accidentally sent to the contract cannot be recovered
-
-### Context
-contracts/staking/NeoTokyoStaker.sol:
-
-It can’t be recovered if the tokens accidentally arrive at the contract address, which has happened to many popular projects, so I recommend adding a recovery code to your critical contracts.
-
-### Recommended Mitigation Steps
-Add this code:
-
- /**
-  * @notice Sends ERC20 tokens trapped in contract to external address
-  * @dev Onlyowner is allowed to make this function call
-  * @param account is the receiving address
-  * @param externalToken is the token being sent
-  * @param amount is the quantity being sent
-  * @return boolean value indicating whether the operation succeeded.
-  *
- */
-  function rescueERC20(address account, address externalToken, uint256 amount) public onlyOwner returns (bool) {
-    IERC20(externalToken).transfer(account, amount);
-    return true;
-  }
-}
-
-##
-
-## [NC-26] Use SMTChecker
+## [NC-13] Use SMTChecker
 
 The highest tier of smart contract behavior assurance is formal mathematical verification. All assertions that are made are guaranteed to be true across all inputs → The quality of your asserts is the quality of your verification.
 
@@ -923,58 +856,27 @@ https://twitter.com/0xOwenThurm/status/1614359896350425088?t=dbG9gHFigBX85Rv29lO
 
 ##
 
-## [NC-27] Constants on the left are better
+## [NC-14] Constants on the left are better
 
 If you use the constant first you support structures that veil programming errors. And one should only produce code either to add functionality, fix an programming error or trying to support structures to avoid programming errors (like design patterns).
 
 https://www.moserware.com/2008/01/constants-on-left-are-better-but-this.html
 
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1040
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1080
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1233
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1244
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1252
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1319
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1372
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1392
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1426
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L392-L393
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L340
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/GasPriceOracle.sol#L121
 
 ##
 
-## [NC-28] Use constants instead of using numbers directly  
+## [NC-15] According to the syntax rules, use => mapping ( instead of => mapping( using spaces as keyword
 
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L490
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L481
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L459
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L346
-https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L338
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol#L20
 
-##
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L72-L77
 
-## [NC-29] According to the syntax rules, use => mapping ( instead of => mapping( using spaces as keyword
-
-```solidity
-FILE: 2023-04-rubicon/contracts/RubiconMarket.sol
-
-691: mapping(uint256 => sortInfo) public _rank; 
-692: mapping(address => mapping(address => uint256)) public _best; 
-693: mapping(address => mapping(address => uint256)) public _span;  sorted orderbook
-694: mapping(address => uint256) public _dust; 
-695: mapping(uint256 => uint256) public _near; 
-```
-### Recommended Mitigation
-
-```solidity
-FILE: 2023-04-rubicon/contracts/RubiconMarket.sol
-
-691: mapping (uint256 => sortInfo) public _rank; 
-```
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2ToL1MessagePasser.sol#L32
 
 ##
 
-## [NC-30] Assembly Codes Specific – Should Have Comments
+## [NC-16] Assembly Codes Specific – Should Have Comments
 
 Since this is a low level language that is more difficult to parse by readers, include extensive documentation, comments on the rationale behind its use, clearly explaining what each assembly instruction does.
 
@@ -982,34 +884,63 @@ This will make it easier for users to trust the code, for reviewers to validate 
 
 Note that using Assembly removes several important security features of Solidity, which can make the code more insecure and more error-prone.
 
-```Solidity
-FILE: 2023-04-rubicon/contracts/RubiconMarket.sol
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L169-L171
 
-648:  assembly {
-```
-[RubiconMarket.sol#L648](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L648)
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L234-L236
 
-```solidity
-FILE: 2023-04-rubicon/contracts/utilities/poolsUtility/Position.sol
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L2OutputOracle.sol#L162-L164
 
-367:  assembly {
-
-```
 ##
 
-## [NC-31] Large multiples of ten should use scientific notation (e.g. 1e5) rather than decimal literals (e.g. 100000), for readability
+## [NC-17] Event is not properly indexed
 
-```solidity
-FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
+Index event fields make the field more quickly accessible to off-chain tools that parse events. This is especially useful when it comes to filtering based on an address. However, note that each index field costs extra gas during emission, so it's not necessarily best to index the maximum allowed per event (three fields). Where applicable, each event should use three indexed fields if there are three or more fields, and gas usage is not particularly of concern for the events in question. If there are fewer than three applicable fields, all of the applicable fields should be indexed.
 
-346:  uint256 mFee = mul(spend, makerFee()) / 100_000;
-338:  uint256 fee = mul(spend, feeBPS) / 100_000;
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1StandardBridge.sol#L30-L35
 
-583:  _amount -= mul(amount, feeBPS) / 100_000;
-583: _amount -= mul(amount, makerFee()) / 100_000;
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/SystemConfig.sol#L80
 
-```
-[RubiconMarket.sol#L583](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L583)
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/CrossDomainOwnable3.sol#L26-L30
+
+##
+
+## [NC-18] Consider using named mappings
+
+Consider moving to solidity version 0.8.18 or later, and using named mappings to make it easier to understand the purpose of each mapping
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/L1ERC721Bridge.sol#L20
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L72-L77
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L2ToL1MessagePasser.sol#L32
+
+##
+
+## [NC-19] Public functions not called by contract can be declared external 
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/SequencerFeeVault.sol#L28
+
+##
+
+## [NC-20] _recipient can be a address(0)
+
+Assigning address(0) to the _recipient parameter typically indicates that the transfer or action associated with the function is not intended to have a specific recipient.
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/SequencerFeeVault.sol#L20
+
+### Recommended Mitigation
+
+_recipient should be checked before transfer tokens 
+
+https://github.com/ethereum-optimism/optimism/blob/382d38b7d45bcbf73cb5e1e3f28cbd45d24e8a59/packages/contracts-bedrock/contracts/L2/L1FeeVault.sol#L19
+
+
+
+
+
+
+
+
 
 
 
